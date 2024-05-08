@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = vb.drawerLayout
-        val navView: NavigationView = vb.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+//        val navView: NavigationView = vb.navView
+//        val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
             ),
             drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        navView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
