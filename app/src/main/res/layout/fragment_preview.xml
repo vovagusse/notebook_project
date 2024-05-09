@@ -6,8 +6,10 @@
     tools:context=".ui.preview.PreviewFragment">
 
     <TextView
+        android:id="@+id/tv_helo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:text="Hello"
+        />
 
 </FrameLayout>
