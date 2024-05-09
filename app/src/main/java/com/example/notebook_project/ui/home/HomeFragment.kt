@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notebook_project.databinding.FragmentHomeBinding
+import com.example.notebook_project.db.NotebookTuple
+import com.example.notebook_project.ui.home.adapter.NotebookRecyclerViewAdapter
 
 class HomeFragment : Fragment() {
 
@@ -15,7 +17,7 @@ class HomeFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    private val vb get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,15 +25,25 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: View = vb.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+//        homeViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
+        val papaContext = container?.context
+        val rw = vb.rvNotebooks
+        val my_adapter = papaContext?.let{
+            NotebookRecyclerViewAdapter(mutableListOf<NotebookTuple>(), it)
         }
+        rw.adapter = my_adapter
+        rw.layoutManager = GridLayoutManager(papaContext, 2)
+        homeViewModel.notebooks.observe(viewLifecycleOwner) {
+            _binding!!.rvNotebooks.adapter?.notifyDataSetChanged()
+        }
+
         return root
     }
 

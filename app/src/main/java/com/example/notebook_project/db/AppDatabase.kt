@@ -8,7 +8,8 @@ import com.example.notebook_project.db.entities.NotebookEntity
 
 @Database(
     version = 1,
-    entities = [NotebookEntity::class]
+    entities = [NotebookEntity::class],
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getUserNotebookDao(): NotebookDao

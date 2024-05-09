@@ -1,3 +1,7 @@
+//import org.jetbrains.kotlin.fir.expressions.FirEmptyArgumentList.arguments
+////import org.jetbrains.kotlin.fir.resolve.calls.ResolvedCallArgument.DefaultArgument.arguments
+////import org.jetbrains.kotlin.resolve.calls.model.ResolvedCallArgument.DefaultArgument.arguments
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -18,7 +22,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-
+//        javaCompileOptions{
+//            annotationProcessorOptions{
+//                arguments += ["room.schemaLocation" : "$projectDir/schemas".toString() ]
+//            }
+//        }
+//exportSchema
     }
 
     buildTypes {
@@ -52,6 +61,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.fragment:fragment-ktx:1.7.0")
 
     //tests
     testImplementation("junit:junit:4.13.2")
@@ -69,4 +80,15 @@ dependencies {
 //    implementation("androidx.room:room-guava:$room_version")
     testImplementation("androidx.room:room-testing:$room_version")
 //    implementation("androidx.room:room-paging:$room_version")
+
+    //markdown rendering
+
+    // https://github.com/noties/Markwon
+    val markwonVersion = "4.6.2"
+    implementation("io.noties.markwon:core:${markwonVersion}")
+
+
+    //SIKE!!! this one uses jetpack compose!!
+//    val version = "0.16.0"
+//    implementation("com.mikepenz:multiplatform-markdown-renderer-android:${version}")
 }

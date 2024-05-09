@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <font
+        android:font="@font/space_mono_regular"
+        android:fontWeight="200" />
+    <font
+        android:font="@font/space_mono_bold"
+        android:fontWeight="300" />
+    <font
+        android:font="@font/space_mono_italic"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/space_mono_bold_italic"
+        android:fontWeight="500" />
+</font-family>

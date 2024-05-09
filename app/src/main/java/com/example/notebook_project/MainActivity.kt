@@ -2,6 +2,7 @@ package com.example.notebook_project
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -11,25 +12,31 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.example.notebook_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var vb: ActivityMainBinding
-
+    //exportSchema
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
         setSupportActionBar(vb.appBarMain.toolbar)
+
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         vb.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = vb.drawerLayout
-//        val navView: NavigationView = vb.navView
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -40,6 +47,9 @@ class MainActivity : AppCompatActivity() {
             ),
             drawerLayout
         )
+
+//        val navView: NavigationView = vb.navView
+//        val navController = findNavController(R.id.nav_host_fragment_content_main)
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
     }
@@ -52,5 +62,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId)
+    {
+        R.id.item_action_settings -> {
+//            vb.drawerLayout.openDrawer(GravityCompat.START)
+            /*return*/ true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }
