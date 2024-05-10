@@ -1,6 +1,8 @@
 package com.example.notebook_project
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
 import com.example.notebook_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+        supportActionBar?.subtitle = ""
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+//        val manrope_bold = Typeface.createFromAsset(this.assets, "fonts/manrope_bold.ttf")
+
 
         vb.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -49,7 +58,12 @@ class MainActivity : AppCompatActivity() {
         )
 
 //        val navView: NavigationView = vb.navView
-//        val navController = findNavController(R.id.nav_host_fragment_content_main)
+//        val navController : NavController?
+//        try{
+//            navController = findNavController(R.id.nav_host_fragment_content_main)
+//        } catch (e: Exception){
+//            Log.e("MainActivity", "onCreate: not found nav controller i guess", )
+//        }
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
     }
