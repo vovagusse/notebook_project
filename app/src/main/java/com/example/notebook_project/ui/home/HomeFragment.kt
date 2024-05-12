@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.notebook_project.databinding.FragmentHomeBinding
 import com.example.notebook_project.db.NotebookTuple
@@ -52,8 +53,8 @@ class HomeFragment : Fragment() {
         homeViewModel.notebooks.observe(viewLifecycleOwner) {
             _binding!!.rvNotebooks.adapter?.notifyDataSetChanged()
         }
-        rw.addItemDecoration(GridSpacingItemDecoration(2, 8, false))
-
+        rw.addItemDecoration(GridSpacingItemDecoration(2, 16, false))
+//        rw.addItemDecoration()
         return root
     }
 

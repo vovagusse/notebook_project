@@ -1,4 +1,4 @@
-package com.example.notebook_project.ui.editor
+package com.example.notebook_project
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

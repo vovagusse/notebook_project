@@ -14,15 +14,18 @@ class NotebookRecyclerViewAdapter (
     var context: Context
 ) : RecyclerView.Adapter<NotebookRecyclerViewAdapter.NotebookViewHolder>() {
     class NotebookViewHolder(iv: View) : RecyclerView.ViewHolder(iv){
+        var tv_date_created: TextView
         var tv_name: TextView
         var tv_index_in_list: TextView
-        var tv_date: TextView
+        var tv_date_edited: TextView
         var tv_description: TextView
         init{
-            tv_name = iv.findViewById(R.id.tv_name)
-            tv_index_in_list = iv.findViewById(R.id.tv_index_in_list)
-            tv_date = iv.findViewById(R.id.tv_date)
-            tv_description = iv.findViewById(R.id.tv_description)
+            tv_name = iv.findViewById(R.id.tv_item_name)
+            tv_index_in_list = iv.findViewById(R.id.tv_item_index_in_list)
+            tv_date_edited = iv.findViewById(R.id.tv_item_date_edited)
+            tv_description = iv.findViewById(R.id.tv_item_description)
+            tv_date_created = iv.findViewById(R.id.tv_item_date_created)
+
         }
     }
 
@@ -38,10 +41,16 @@ class NotebookRecyclerViewAdapter (
     }
 
     override fun onBindViewHolder(holder: NotebookViewHolder, pos: Int) {
-        val nb = notebooks[pos]
+        val nb = notebooks[pos+1]
         holder.tv_name.text = nb.notebook_name
         holder.tv_index_in_list.text = pos.toString()
-        holder.tv_description.text = nb.description
-        holder.tv_date.text = "Последние изменения: $nb.dateTimeLastEdited"
+
+        holder.tv_description.text = "${gs(R.string.item_description)}: ${nb.description}"
+        holder.tv_date_edited.text = "${gs(R.string.latest_changes)}: ${nb.dateTimeLastEdited}"
+        holder.tv_date_created.text = "${gs(R.string.created_on)}: ${nb.dateTimeLastEdited}"
+    }
+
+    private fun gs(id: Int): String{
+        return this.context.resources.getString(id)
     }
 }

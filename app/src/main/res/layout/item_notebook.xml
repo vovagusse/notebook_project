@@ -4,51 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:theme="@style/Theme.Notebook_project.RecyclerViewItem"
-    android:background="@drawable/round_rectangle_shape"
-    android:clickable="true">
+    android:clickable="true"
+    android:theme="@style/Theme.Notebook_project.RecyclerViewItem">
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_item_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:text="Name of notebook"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_numbersign"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_numbersign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_index_in_list"
-        app:layout_constraintTop_toTopOf="@+id/tv_numbersign" />
+        app:layout_constraintStart_toEndOf="@+id/tv_item_index_in_list"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_numbersign" />
 
     <TextView
-        android:id="@+id/tv_index_in_list"
+        android:id="@+id/tv_item_index_in_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_numbersign"
-        app:layout_constraintStart_toEndOf="@+id/tv_numbersign"
-        app:layout_constraintTop_toTopOf="@+id/tv_numbersign" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_numbersign"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_numbersign"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_numbersign" />
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/tv_item_date_created"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Created on:"
+        android:textSize="10sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/tv_item_date_edited"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_description"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
+
+    <TextView
+        android:id="@+id/tv_item_date_edited"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
+        android:text="Last edited:"
         android:textSize="10sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_description"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+        app:layout_constraintStart_toStartOf="@+id/tv_item_date_created"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_date_created" />
+
 
     <TextView
-        android:id="@+id/tv_numbersign"
+        android:id="@+id/tv_item_numbersign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -59,16 +76,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_description"
+        android:id="@+id/tv_item_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Description: "
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_item_date_created"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <View
@@ -80,9 +98,12 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/tv_description"
+        android:backgroundTint="#737480"
+        app:layout_constraintBottom_toTopOf="@+id/tv_item_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

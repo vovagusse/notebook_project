@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="teal_desat">#86C5FC</color>
-    <color name="sky_blue">#0073EE</color>
-    <color name="blue_reg">#005FB3</color>
-    <color name="blue_dark">#1803DA</color>
-    <color name="blue_darker">#010E87</color>
+    <color name="teal_desat">#99A2FF</color>
+    <color name="sky_blue">#808AFF</color>
+    <color name="sky_blue_dark">#4F57B0</color>
+    <color name="sky_blue_darker">#3C3C78</color>
+    <color name="blue_reg">#2C38B8</color>
+    <color name="blue_dark">#2632BD</color>
+    <color name="blue_darker">#1C27A3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blurple_grey">#626478</color>
+    <color name="blurple_dark_grey">#403E57</color>
+    <color name="blurple_darker_grey">#1C1D26</color>
+    <color name="blurple_white">#D9DCFF</color>
+    <color name="blurple_white_desat">#F0F1FF</color>
+
+    <color name="green_tick_yes" >#69F0AE</color>
+    <color name="green_tick_nooooo" >#F06969</color>
 </resources>

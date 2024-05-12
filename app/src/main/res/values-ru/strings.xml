@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_header_subtitle">Ведётся разработка...</string>
+    <string name="action_settings">Настройки</string>
+    <string name="menu_home">Домашеяя страница</string>
+    <string name="menu_gallery">Галерея</string>
+    <string name="menu_slideshow">Слайд-шоу</string>
+    <string name="menu_open_file">Открыть файл</string>
+    <string name="menu">Меню</string>
+    <string name="settings">Настройки</string>
+    <string name="github_page">Проект на GitHub</string>
+    <string name="created_on">Дата создания</string>
+    <string name="latest_changes">Дата изменения</string>
+    <string name="item_description">Описание</string>
+</resources>

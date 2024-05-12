@@ -45,13 +45,12 @@ class MainActivity : AppCompatActivity() {
         }
         val drawerLayout: DrawerLayout = vb.drawerLayout
 
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_other_thing,
+                R.id.nav_github_link,
                 R.id.nav_settings
             ),
             drawerLayout
@@ -81,7 +80,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId)
     {
         R.id.item_action_settings -> {
-            vb.drawerLayout.openDrawer(GravityCompat.START)
+            // LAUNCH SETTINGS ACTIVITY
+//            vb.drawerLayout.openDrawer(GravityCompat.START)
             /*return*/ true
         }
         else -> super.onOptionsItemSelected(item)
