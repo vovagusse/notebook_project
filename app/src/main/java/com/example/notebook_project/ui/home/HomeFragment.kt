@@ -1,5 +1,6 @@
 package com.example.notebook_project.ui.home
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentHomeBinding
+import com.example.notebook_project.db.NotebookTuple
 import com.example.notebook_project.util.notebookTemplate
 import com.example.notebook_project.ui.home.adapter.NotebookRecyclerViewAdapter
 import com.example.notebook_project.ui.home.rwdecoration.GridSpacingItemDecoration
+import com.example.notebook_project.ui.preview.PreviewFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), SelectListener{
 
     private var _binding: FragmentHomeBinding? = null
     private var homeViewModel: HomeViewModel? = null
@@ -43,7 +48,7 @@ class HomeFragment : Fragment() {
         val rw = vb.rvNotebooks
         val my_adapter = papaContext?.let{
 //            NotebookRecyclerViewAdapter(mutableListOf<NotebookTuple>(), it)
-            NotebookRecyclerViewAdapter(my_objects, it)
+            NotebookRecyclerViewAdapter(my_objects, it, this)
         }
         rw.adapter = my_adapter
         rw.layoutManager = GridLayoutManager(papaContext, 2)
@@ -59,6 +64,9 @@ class HomeFragment : Fragment() {
                 0,
                 rw.adapter?.itemCount?:0)
         }
+
+
+
         return root
     }
 
@@ -75,5 +83,9 @@ class HomeFragment : Fragment() {
         else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             homeViewModel?.changeSpansTo(2)
         }
+    }
+
+    override fun onItemClicked(notebookTuple: NotebookTuple) {
+        findNavController().navigate(R.id.action_nav_home_to_previewFragment)
     }
 }

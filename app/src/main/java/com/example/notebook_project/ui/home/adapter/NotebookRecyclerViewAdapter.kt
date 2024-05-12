@@ -5,20 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notebook_project.R
 import com.example.notebook_project.db.NotebookTuple
+import com.example.notebook_project.ui.home.SelectListener
 
 class NotebookRecyclerViewAdapter (
     var notebooks: MutableList<NotebookTuple>,
-    var context: Context
+    var context: Context,
+    var selectListener: SelectListener
 ) : RecyclerView.Adapter<NotebookRecyclerViewAdapter.NotebookViewHolder>() {
     class NotebookViewHolder(iv: View) : RecyclerView.ViewHolder(iv){
         var tv_date_created: TextView
         var tv_name: TextView
         var tv_date_edited: TextView
         var tv_description: TextView
+        val container : ConstraintLayout
         init{
+            container = iv.findViewById(R.id.item_notebook_constraintLayout)
             tv_name = iv.findViewById(R.id.tv_item_name)
             tv_date_edited = iv.findViewById(R.id.tv_item_date_edited)
             tv_description = iv.findViewById(R.id.tv_item_description)
@@ -45,6 +50,10 @@ class NotebookRecyclerViewAdapter (
         holder.tv_description.text = "${gs(R.string.item_description)}: ${nb.description}"
         holder.tv_date_edited.text = "${gs(R.string.latest_changes)}: ${nb.dateTimeLastEdited}"
         holder.tv_date_created.text = "${gs(R.string.created_on)}: ${nb.dateTimeLastEdited}"
+
+        holder.container.setOnClickListener{
+            this.selectListener.onItemClicked(this.notebooks.get(pos))
+        }
     }
 
     private fun gs(id: Int): String{

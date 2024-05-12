@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:id="@+id/item_notebook_constraintLayout"
     android:theme="@style/Theme.Notebook_project.RecyclerViewItem"
     >
 

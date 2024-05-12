@@ -86,6 +86,9 @@ dependencies {
     // https://github.com/noties/Markwon
     val markwonVersion = "4.6.2"
     implementation("io.noties.markwon:core:${markwonVersion}")
+    implementation("io.noties.markwon:ext-latex:${markwonVersion}")
+    implementation("io.noties.markwon:syntax-highlight:${markwonVersion}")
+    implementation("io.noties.markwon:editor:${markwonVersion}")
 
 
     //SIKE!!! this one uses jetpack compose!!
