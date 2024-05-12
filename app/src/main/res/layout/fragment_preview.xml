@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.preview.PreviewFragment">
 
+<!--    make stuff for preview + floating action button to
+    edit and at the top show the name of the file-->
+
     <TextView
-        android:id="@+id/tv_helo"
+        android:id="@+id/tv_notebook_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Hello"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello descriptm"
+        android:textSize="16sp"
         />
+    <TextView
+        android:id="@+id/tv_date_created"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="created on: 11.01.2024"
+        android:textSize="10sp"
+        />
+    <TextView
+        android:id="@+id/tv_date_edited"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="edited on: 11.01.2024"
+        android:textSize="10sp"
+        />
+
 
 </FrameLayout>

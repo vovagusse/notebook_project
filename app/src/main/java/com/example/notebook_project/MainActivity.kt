@@ -1,8 +1,6 @@
 package com.example.notebook_project
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
@@ -16,7 +14,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.notebook_project.databinding.ActivityMainBinding
+import com.example.notebook_project.db.NotebookTuple
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,21 +51,21 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_gallery,
-                R.id.nav_slideshow
+                R.id.nav_other_thing,
+                R.id.nav_settings
             ),
             drawerLayout
         )
+        val navHostFragment: NavHostFragment =
+            supportFragmentManager
+                .findFragmentById(R.id.nav_host_fragment_content_main)
+                    as NavHostFragment
 
-//        val navView: NavigationView = vb.navView
-//        val navController : NavController?
-//        try{
-//            navController = findNavController(R.id.nav_host_fragment_content_main)
-//        } catch (e: Exception){
-//            Log.e("MainActivity", "onCreate: not found nav controller i guess", )
-//        }
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        val navController: NavController = navHostFragment.navController
+        val navView: NavigationView = vb.navView
+        navController.navigate(R.id.nav_home)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -81,9 +81,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId)
     {
         R.id.item_action_settings -> {
-//            vb.drawerLayout.openDrawer(GravityCompat.START)
+            vb.drawerLayout.openDrawer(GravityCompat.START)
             /*return*/ true
         }
         else -> super.onOptionsItemSelected(item)
     }
+
 }

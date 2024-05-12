@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.notebook_project.databinding.FragmentHomeBinding
 import com.example.notebook_project.db.NotebookTuple
+import com.example.notebook_project.notebookTemplate
 import com.example.notebook_project.ui.home.adapter.NotebookRecyclerViewAdapter
+import com.example.notebook_project.ui.home.rwdecoration.GridSpacingItemDecoration
+import com.example.notebook_project.db.dao.NotebookDao as NotebookDao
 
 class HomeFragment : Fragment() {
 
@@ -34,15 +38,21 @@ class HomeFragment : Fragment() {
 //            textView.text = it
 //        }
         val papaContext = container?.context
+        var my_objects = notebookTemplate()
+        my_objects.addAll(notebookTemplate())
+        my_objects.addAll(notebookTemplate())
+        my_objects.addAll(notebookTemplate())
         val rw = vb.rvNotebooks
         val my_adapter = papaContext?.let{
-            NotebookRecyclerViewAdapter(mutableListOf<NotebookTuple>(), it)
+//            NotebookRecyclerViewAdapter(mutableListOf<NotebookTuple>(), it)
+            NotebookRecyclerViewAdapter(my_objects, it)
         }
         rw.adapter = my_adapter
         rw.layoutManager = GridLayoutManager(papaContext, 2)
         homeViewModel.notebooks.observe(viewLifecycleOwner) {
             _binding!!.rvNotebooks.adapter?.notifyDataSetChanged()
         }
+        rw.addItemDecoration(GridSpacingItemDecoration(2, 8, false))
 
         return root
     }

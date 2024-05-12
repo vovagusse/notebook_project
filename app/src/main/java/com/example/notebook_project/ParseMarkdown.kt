@@ -2,8 +2,7 @@ package com.example.notebook_project
 
 import android.R
 import android.os.Bundle
-
-
+import com.example.notebook_project.db.NotebookTuple
 
 
 fun parseMarkdown(source: String){
@@ -22,3 +21,29 @@ fun parseMarkdown(source: String){
 //private fun updateMarkdownView() {
 //    markdownView.loadMarkdown(note_content.getText().toString())
 //}
+
+
+
+fun notebookTemplate(): MutableList<NotebookTuple>{
+    val a = mutableListOf(
+        NotebookTuple(1,
+            "/files/note1.md",
+            "Name",
+            "",
+            "11.05.2024",
+            "11.05.2024"),
+        NotebookTuple(2,
+            "/files/note2.md",
+            "Name 2",
+            "",
+            "11.05.2024",
+            "11.05.2024"),
+        NotebookTuple(3,
+            "/files/note3.md",
+            "Name 3",
+            "",
+            "11.05.2024",
+            "11.05.2024")
+    )
+    return a
+}
