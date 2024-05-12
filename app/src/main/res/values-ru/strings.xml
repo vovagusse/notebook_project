@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nav_header_subtitle">Ведётся разработка...</string>
+    <string name="nav_header_subtitle">Ведётся разработка…</string>
     <string name="action_settings">Настройки</string>
     <string name="menu_home">Домашеяя страница</string>
     <string name="menu_gallery">Галерея</string>
@@ -12,4 +12,9 @@
     <string name="created_on">Дата создания</string>
     <string name="latest_changes">Дата изменения</string>
     <string name="item_description">Описание</string>
+    <string name="confirm_exit_editing_title">Выйти и сохранить</string>
+    <string name="confirm_exit_editing_message">Вы хотите выйти и сохранить вашу заметку? (Нажмите \"Да\", чтобы выйти и сохранить, \"Отмена\", чтобы вернуться и \"Нет\", чтобы выйти без сохранения)</string>
+    <string name="confirm_positive">Да</string>
+    <string name="confirm_negative">Нет</string>
+    <string name="confirm_cancel">Отмена</string>
 </resources>

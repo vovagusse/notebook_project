@@ -14,11 +14,27 @@
         <action
             android:id="@+id/action_nav_home_to_previewFragment"
             app:destination="@id/nav_preview" />
+        <action
+            android:id="@+id/action_nav_home_to_createNotebookFragment"
+            app:destination="@id/createNotebookFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_preview"
         android:name="com.example.notebook_project.ui.preview.PreviewFragment"
         android:label="fragment_preview"
-        tools:layout="@layout/fragment_preview" />
+        tools:layout="@layout/fragment_preview" >
+        <action
+            android:id="@+id/action_nav_preview_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNotebookFragment"
+        android:name="com.example.notebook_project.ui.create.CreateNotebookFragment"
+        android:label="fragment_create_notebook"
+        tools:layout="@layout/fragment_create_notebook" >
+        <action
+            android:id="@+id/action_createNotebookFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 </navigation>

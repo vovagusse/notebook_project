@@ -3,7 +3,10 @@
     <style name="Theme.Notebook_project" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blurple_grey</item>
-        <item name="colorPrimaryVariant">@color/blurple_dark_grey</item>
+
+        <item name="android:navigationBarColor">@color/blurple_darker_grey</item>
+        <item name="colorPrimaryVariant">@color/sky_blue_dark</item>
+
         <item name="colorOnPrimary">@color/blurple_darker_grey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/sky_blue_dark</item>
@@ -48,6 +51,22 @@
         </item>
         <item name="android:backgroundTint">
             @color/blurple_grey
+        </item>
+    </style>
+
+    <style name="Theme.Notebook_project.ImageButtonAdaptiveStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:tint">
+            @color/blurple_white
+        </item>
+    </style>
+
+
+    <style name="Theme.Notebook_project.RWDivider" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:backgroundTint">
+            @color/blurple_white
+        </item>
+        <item name="android:dividerHeight">
+            5dp
         </item>
     </style>
 </resources>

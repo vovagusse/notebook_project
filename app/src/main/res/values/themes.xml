@@ -1,9 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Notebook_project" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+<!--        I have my custom actionbars maaaan!!!-->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/sky_blue</item>
-        <item name="colorPrimaryVariant">@color/blue_reg</item>
+<!--        Top and bottom of app-->
+        <item name="android:navigationBarColor">@color/blurple_white</item>
+        <item name="colorPrimaryVariant">@color/sky_blue</item>
+
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_dark</item>
@@ -43,6 +50,26 @@
         </item>
         <item name="android:backgroundTint">
             @color/blurple_white_desat
+        </item>
+    </style>
+
+    <style name="Theme.Notebook_project.ImageButtonAdaptiveStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:tint">
+            @color/blurple_darker_grey
+        </item>
+    </style>
+
+    <style name="Theme.Notebook_project.RWDivider" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:backgroundTint">
+            @color/blue_dark
+        </item>
+    </style>
+    <style name="Theme.Notebook_project.OtherStuff" parent="Theme.Material3.Light">
+        <item name="colorPrimaryVariant">
+            @color/sky_blue
+        </item>
+        <item name="android:navigationBarColor">
+            @color/blurple_white
         </item>
     </style>
 </resources>

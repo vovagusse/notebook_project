@@ -5,45 +5,35 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:theme="@style/Theme.Notebook_project.RecyclerViewItem">
+    android:theme="@style/Theme.Notebook_project.RecyclerViewItem"
+    >
 
     <TextView
         android:id="@+id/tv_item_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
         android:text="Name of notebook"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_numbersign"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_item_index_in_list"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_numbersign" />
-
-    <TextView
-        android:id="@+id/tv_item_index_in_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_numbersign"
-        app:layout_constraintStart_toEndOf="@+id/tv_item_numbersign"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_numbersign" />
+        app:layout_constraintEnd_toStartOf="@+id/ib_options"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_item_date_created"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:text="Created on:"
+        android:textAlignment="viewEnd"
         android:textSize="10sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/tv_item_date_edited"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_description"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tv_item_description"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
 
@@ -52,34 +42,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="Last edited:"
+        android:textAlignment="viewEnd"
         android:textSize="10sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_date_created"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tv_item_date_created"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_date_created" />
 
 
     <TextView
-        android:id="@+id/tv_item_numbersign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="№"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/tv_item_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Description: "
         android:textSize="16sp"
@@ -94,16 +74,29 @@
         android:layout_width="409dp"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="?android:attr/listDivider"
-        android:backgroundTint="#737480"
+        android:theme="@style/Theme.Notebook_project.RWDivider"
         app:layout_constraintBottom_toTopOf="@+id/tv_item_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_name"
         app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageButton
+        android:id="@+id/ib_options"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Options to quickly edit notebook project"
+        android:theme="@style/Theme.Notebook_project.ImageButtonAdaptiveStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_name"
+        app:srcCompat="@drawable/ic_moreoptions_vertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
