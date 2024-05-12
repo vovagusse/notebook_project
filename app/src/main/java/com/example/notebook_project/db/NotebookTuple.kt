@@ -9,8 +9,6 @@ data class NotebookTuple(
     val uri: String,
     @ColumnInfo(name="metadatanotebook_name")
     val notebook_name: String,
-    @ColumnInfo(name="metadatadescription")
-    val description: String,
     @ColumnInfo(name="metadatadateTimeOfCreation")
     val dateTimeOfCreation: String,
     @ColumnInfo(name="metadatadateTimeLastEdited")

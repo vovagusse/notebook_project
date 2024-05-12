@@ -22,4 +22,7 @@
     <string name="confirm_positive">Yes</string>
     <string name="confirm_negative">No</string>
     <string name="confirm_cancel">Cancel</string>
+    <string name="my_github_repo" translatable="false">https://github.com/vovagusse/notebook_project</string>
+    <string name="err_no_file_manager">No file manager installed. Please download a file manager/explorer.</string>
+    <string name="select_file_message">Select a file to open (.txt / .md)</string>
 </resources>

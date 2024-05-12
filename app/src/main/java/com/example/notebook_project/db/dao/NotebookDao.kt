@@ -14,7 +14,6 @@ interface NotebookDao {
 
     @Query("SELECT id, " +
             "uri, metadatanotebook_name, " +
-            "metadatadescription, " +
             "metadatadateTimeOfCreation, " +
             "metadatadateTimeLastEdited " +
             "FROM notebook")
@@ -22,7 +21,6 @@ interface NotebookDao {
 
     @Query("SELECT id, " +
             "uri, metadatanotebook_name, " +
-            "metadatadescription, " +
             "metadatadateTimeOfCreation, " +
             "metadatadateTimeLastEdited " +
             "FROM notebook " +
@@ -32,7 +30,6 @@ interface NotebookDao {
 
     @Query("SELECT id, " +
             "uri, metadatanotebook_name, " +
-            "metadatadescription, " +
             "metadatadateTimeOfCreation, " +
             "metadatadateTimeLastEdited " +
             "FROM notebook " +
@@ -42,7 +39,6 @@ interface NotebookDao {
 
     @Query("SELECT id, " +
             "uri, metadatanotebook_name, " +
-            "metadatadescription, " +
             "metadatadateTimeOfCreation, " +
             "metadatadateTimeLastEdited " +
             "FROM notebook " +
@@ -53,7 +49,6 @@ interface NotebookDao {
 
     @Query("SELECT id, " +
             "uri, metadatanotebook_name, " +
-            "metadatadescription, " +
             "metadatadateTimeOfCreation, " +
             "metadatadateTimeLastEdited " +
             "FROM notebook " +

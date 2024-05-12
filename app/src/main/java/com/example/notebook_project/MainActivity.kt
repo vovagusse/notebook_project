@@ -1,9 +1,11 @@
 package com.example.notebook_project
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.notebook_project.activities.EditorActivity
+import com.example.notebook_project.activities.SettingsActivity
 import com.example.notebook_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -71,6 +74,37 @@ class MainActivity : AppCompatActivity() {
             Intent(this, EditorActivity::class.java).apply {
                 startActivity(this)
             }
+        }
+
+
+        navView.menu.findItem(R.id.nav_github_link).setOnMenuItemClickListener {
+            val my_repo = resources.getText(R.string.my_github_repo).toString()
+            Intent(Intent.ACTION_VIEW).apply {
+                this.setData(Uri.parse(my_repo))
+                startActivity(this)
+            }
+            true
+        }
+        navView.menu.findItem(R.id.nav_settings).setOnMenuItemClickListener {
+            Intent(this, SettingsActivity::class.java).apply {
+                startActivity(this)
+            }
+            true
+        }
+        navView.menu.findItem(R.id.nav_openFile).setOnMenuItemClickListener {
+            TODO("bitch i ait did the thing with opening file :(")
+//            Intent(Intent.ACTION_GET_CONTENT).apply {
+//                this.setType("text/md/txt")
+//                this.addCategory(Intent.CATEGORY_OPENABLE)
+//                try{
+//                    startActivityForResult(Intent.createChooser(this, resources.getText(R.string.select_file_message)), FILE_SELECT_CODE)
+//                } catch (ex: android.content.ActivityNotFoundException) {
+//                    Toast.makeText(this@MainActivity,
+//                        resources.getText(R.string.err_no_file_manager),
+//                        Toast.LENGTH_LONG).show()
+//                }
+//            }
+            true
         }
     }
 

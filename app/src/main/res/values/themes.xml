@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Notebook_project" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
+        <item name="textFillColor">@android:color/transparent</item>
+
 <!--        I have my custom actionbars maaaan!!!-->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
