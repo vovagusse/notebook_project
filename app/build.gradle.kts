@@ -9,6 +9,8 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
+
+
 android {
     namespace = "com.example.notebook_project"
     compileSdk = 34
@@ -70,25 +72,27 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //room db
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+//    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 //    implementation("androidx.room:room-rxjava2:$room_version")
 //    implementation("androidx.room:room-rxjava3:$room_version")
 //    implementation("androidx.room:room-guava:$room_version")
-    testImplementation("androidx.room:room-testing:$room_version")
+//    testImplementation("androidx.room:room-testing:2.6.1")
 //    implementation("androidx.room:room-paging:$room_version")
 
     //markdown rendering
 
     // https://github.com/noties/Markwon
-    val markwonVersion = "4.6.2"
-    implementation("io.noties.markwon:core:${markwonVersion}")
-    implementation("io.noties.markwon:ext-latex:${markwonVersion}")
-    implementation("io.noties.markwon:syntax-highlight:${markwonVersion}")
-    implementation("io.noties.markwon:editor:${markwonVersion}")
+    val markwon_version = "4.6.2"
+    implementation("io.noties.markwon:core:$markwon_version")
+    implementation("io.noties.markwon:editor:$markwon_version")
+    annotationProcessor("io.noties.markwon:ext-latex:$markwon_version")
+    annotationProcessor("io.noties.markwon:ext-tasklist:$markwon_version")
+    annotationProcessor("io.noties.markwon:recycler:$markwon_version")
+    annotationProcessor("io.noties.markwon:syntax-highlight:$markwon_version")
 
 
     //SIKE!!! this one uses jetpack compose!!

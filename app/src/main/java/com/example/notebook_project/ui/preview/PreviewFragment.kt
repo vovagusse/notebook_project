@@ -10,9 +10,6 @@ import com.example.notebook_project.R
 
 class PreviewFragment : Fragment() {
 
-
-    private val viewModel: PreviewViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

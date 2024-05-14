@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Notebook_project"
         tools:targetApi="31" >
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".ui.activities.SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.Notebook_project" />
         <activity
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.EditorActivity"
+        <activity android:name=".ui.activities.EditorActivity"
 
             >
 

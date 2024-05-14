@@ -1,8 +1,7 @@
 package com.example.notebook_project.util
 
-import android.R
-import android.os.Bundle
-import com.example.notebook_project.db.NotebookTuple
+import com.example.notebook_project.db.entities.Notebook
+import com.example.notebook_project.db.entities.NotebookMetadata
 
 
 fun parseMarkdown(source: String){
@@ -24,55 +23,56 @@ fun parseMarkdown(source: String){
 
 
 
-fun notebookTemplate(): MutableList<NotebookTuple>{
+fun notebookTemplate(): MutableList<Notebook>{
     val a = mutableListOf(
-        NotebookTuple(1,
+        Notebook(1,
             "/files/note1.md",
-            "Name",
+            NotebookMetadata("Name",
             "A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa",
             "11.05.2024",
-            "11.05.2024"),
-        NotebookTuple(2,
+            "11.05.2024")),
+        Notebook(2,
             "/files/note2.md",
-            "Name 2 very long name very long ass fucking name fuck yeah",
+            NotebookMetadata("Name 2 very long name very long ass fucking name fuck yeah",
             "A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa",
             "11.05.2024",
-            "11.05.2024"),
-        NotebookTuple(3,
+            "11.05.2024")),
+        Notebook(3,
             "/files/note3.md",
-            "Name 3",
+            NotebookMetadata("Name 3",
             "A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa A notebook i made aaaaaaa aaaaaaaa aaaaaa",
             "11.05.2024",
-            "11.05.2024"),
-        NotebookTuple(3,
+            "11.05.2024")),
+        Notebook(3,
             "/files/note3.md",
-            "Name 4",
+            NotebookMetadata("Name 4",
             "A notebook. short desc.",
             "11.05.2024",
-            "11.05.2024"),
-        NotebookTuple(3,
+            "11.05.2024")),
+        Notebook(3,
             "/files/note3.md",
-            "Name 5",
+            NotebookMetadata("Name 5",
             "A notebook. short desc.",
             "11.05.2024",
-            "11.05.2024"),
-        NotebookTuple(3,
+            "11.05.2024")),
+        Notebook(3,
             "/files/note3.md",
-            "Name 6",
+            NotebookMetadata("Name 6",
             "A notebook. short desc.",
             "11.05.2024",
-            "11.05.2024"),
-        NotebookTuple(3,
+            "11.05.2024")),
+        Notebook(3,
             "/files/note3.md",
-            "Name 6",
+            NotebookMetadata("Name 6",
             "A notebook. short desc.",
             "11.05.2024",
-            "11.05.2024"),NotebookTuple(3,
+            "11.05.2024")),
+        Notebook(3,
             "/files/note3.md",
-            "Name 7",
+            NotebookMetadata("Name 7",
             "A notebook. short desc.",
             "11.05.2024",
-            "11.05.2024")
+            "11.05.2024"))
     )
     return a
 }

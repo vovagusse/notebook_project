@@ -7,6 +7,9 @@ plugins {
 buildscript {
     repositories {
         google()
+        maven(
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        )
     }
     dependencies {
         val nav_version = "2.7.7"

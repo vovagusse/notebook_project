@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "notebook",)
-data class NotebookEntity (
+data class Notebook (
     @PrimaryKey(true)
     @ColumnInfo("id")
     val id: Long,
@@ -15,5 +15,5 @@ data class NotebookEntity (
     val uri: String,
 
     @Embedded("metadata")
-    val metadata: NotebookMetadataEntity
+    val metadata: NotebookMetadata
 )

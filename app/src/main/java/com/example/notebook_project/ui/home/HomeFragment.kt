@@ -1,6 +1,5 @@
 package com.example.notebook_project.ui.home
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,27 +11,26 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentHomeBinding
-import com.example.notebook_project.db.NotebookTuple
+import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.util.notebookTemplate
 import com.example.notebook_project.ui.home.adapter.NotebookRecyclerViewAdapter
 import com.example.notebook_project.ui.home.rwdecoration.GridSpacingItemDecoration
-import com.example.notebook_project.ui.preview.PreviewFragment
 
 class HomeFragment : Fragment(), SelectListener{
 
     private var _binding: FragmentHomeBinding? = null
-    private var homeViewModel: HomeViewModel? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val vb get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // TODO: Use the ViewModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = vb.root
@@ -41,31 +39,17 @@ class HomeFragment : Fragment(), SelectListener{
 //            textView.text = it
 //        }
         val papaContext = container?.context
-        var my_objects = notebookTemplate()
+        val my_objects = notebookTemplate()
         my_objects.addAll(notebookTemplate())
         my_objects.addAll(notebookTemplate())
         my_objects.addAll(notebookTemplate())
         val rw = vb.rvNotebooks
         val my_adapter = papaContext?.let{
-//            NotebookRecyclerViewAdapter(mutableListOf<NotebookTuple>(), it)
             NotebookRecyclerViewAdapter(my_objects, it, this)
         }
         rw.adapter = my_adapter
         rw.layoutManager = GridLayoutManager(papaContext, 2)
-        homeViewModel?.notebooks?.observe(viewLifecycleOwner) {
-            rw.adapter?.notifyItemRangeChanged(
-                0,
-                rw.adapter?.itemCount?:0)
-        }
-        homeViewModel?.spans?.observe(viewLifecycleOwner){
-            val newDecor = GridSpacingItemDecoration(it, 16, true)
-            rw.addItemDecoration(newDecor)
-            rw.adapter?.notifyItemRangeChanged(
-                0,
-                rw.adapter?.itemCount?:0)
-        }
-
-
+        rw.addItemDecoration(GridSpacingItemDecoration(2, 16, true))
 
         return root
     }
@@ -77,15 +61,15 @@ class HomeFragment : Fragment(), SelectListener{
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            homeViewModel?.changeSpansTo(3)
-        }
-        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            homeViewModel?.changeSpansTo(2)
-        }
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+//            homeViewModel?.changeSpansTo(3)
+//        }
+//        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+//            homeViewModel?.changeSpansTo(2)
+//        }
     }
 
-    override fun onItemClicked(notebookTuple: NotebookTuple) {
+    override fun onItemClicked(notebook: Notebook) {
         findNavController().navigate(R.id.action_nav_home_to_previewFragment)
     }
 }

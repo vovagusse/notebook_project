@@ -16,6 +16,9 @@
             app:destination="@id/nav_preview"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_nav_home_to_editorFragment"
+            app:destination="@id/editorFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_preview"
@@ -26,6 +29,21 @@
             android:id="@+id/action_nav_preview_to_nav_home"
             app:destination="@id/nav_home"
             app:enterAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_nav_preview_to_editorFragment"
+            app:destination="@id/editorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editorFragment"
+        android:name="com.example.notebook_project.ui.editor.EditorFragment"
+        android:label="fragment_editor"
+        tools:layout="@layout/fragment_editor" >
+        <action
+            android:id="@+id/action_editorFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_editorFragment_to_nav_preview"
+            app:destination="@id/nav_preview" />
     </fragment>
 
 </navigation>

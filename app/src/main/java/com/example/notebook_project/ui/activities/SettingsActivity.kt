@@ -1,4 +1,4 @@
-package com.example.notebook_project.activities
+package com.example.notebook_project.ui.activities
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar

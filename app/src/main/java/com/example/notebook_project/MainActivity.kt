@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,8 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.notebook_project.activities.EditorActivity
-import com.example.notebook_project.activities.SettingsActivity
+import com.example.notebook_project.ui.activities.SettingsActivity
 import com.example.notebook_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -69,12 +67,6 @@ class MainActivity : AppCompatActivity() {
 //                .setAction("Action", null).show()
 //        }
 
-        val createButton = vb.appBarMain.fabCreateNewNotebook
-        createButton.setOnClickListener {
-            Intent(this, EditorActivity::class.java).apply {
-                startActivity(this)
-            }
-        }
 
 
         navView.menu.findItem(R.id.nav_github_link).setOnMenuItemClickListener {
