@@ -19,4 +19,8 @@
     <string name="confirm_cancel">Отмена</string>
     <string name="err_no_file_manager">На вашем устройстве не установлено приложение для работы с файлом. Пожалуйста, скачайте файловый менеджер или проводник.</string>
     <string name="select_file_message">Выберите файл для открытия (.txt / .md)</string>
+    <string name="preview_label">Вид Блокнота</string>
+    <string name="editor_label">Редактирование</string>
+    <string name="hint_notebook_name">Заголовок</string>
+    <string name="hint_notebook_body">Тело блокнота</string>
 </resources>

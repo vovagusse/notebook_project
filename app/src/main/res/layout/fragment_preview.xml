@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,59 +11,57 @@
     edit and at the top show the name of the file-->
 
     <TextView
-        android:id="@+id/tv_notebook_name"
+        android:id="@+id/tv_preview_notebook_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Hello"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_item_description"
+        app:layout_constraintBottom_toTopOf="@+id/tv_preview_notebook_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_item_description"
+        android:id="@+id/tv_preview_notebook_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Hello descriptm"
+        android:text="Hello descriptdsjndjs"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_date_created"
+        app:layout_constraintBottom_toTopOf="@+id/tv_preview_date_created"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_notebook_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_preview_notebook_name" />
 
 
     <TextView
-        android:id="@+id/tv_date_created"
+        android:id="@+id/tv_preview_date_created"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="created on: 11.01.2024"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_date_edited"
+        app:layout_constraintBottom_toTopOf="@+id/tv_preview_date_edited"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_preview_notebook_body" />
 
     <TextView
-        android:id="@+id/tv_date_edited"
+        android:id="@+id/tv_preview_date_edited"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="edited on: 11.01.2024"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_notebook_name"
+        app:layout_constraintBottom_toTopOf="@+id/tv_preview_notebook_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date_created" />
-    " />
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_preview_date_created" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

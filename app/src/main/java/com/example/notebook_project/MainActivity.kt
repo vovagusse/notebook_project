@@ -5,43 +5,43 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.navigation.NavigationView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import com.example.notebook_project.ui.activities.SettingsActivity
 import com.example.notebook_project.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
-
+    //fields
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var vb: ActivityMainBinding
-    //exportSchema
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navController: NavController
+    // ON CREATEEEEE AYOOO
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb.root)
-        setSupportActionBar(vb.appBarMain.toolbar)
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
-        supportActionBar?.subtitle = ""
-        supportActionBar?.setDisplayShowTitleEnabled(false)
 
-//        val manrope_bold = Typeface.createFromAsset(this.assets, "fonts/manrope_bold.ttf")
+        //Fragment mother (Mother of all Fragments)
+        val navHostFragment: NavHostFragment =
+            supportFragmentManager
+                .findFragmentById(R.id.nav_host_fragment_content_main)
+                    as NavHostFragment
 
-        val drawerLayout: DrawerLayout = vb.drawerLayout
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // DrawerLayout setup.
+        drawerLayout = vb.drawerLayout
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
@@ -50,52 +50,78 @@ class MainActivity : AppCompatActivity() {
             ),
             drawerLayout
         )
-        val navHostFragment: NavHostFragment =
-            supportFragmentManager
-                .findFragmentById(R.id.nav_host_fragment_content_main)
-                    as NavHostFragment
+        //locks the drawerLayout object in case the fragment is not HomeFragment. Pretty cool, huh?
+        navHostFragment.navController.addOnDestinationChangedListener(listener = { _, destination, _ ->
+            if (destination.id== R.id.nav_home) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        })
 
-        val navController: NavController = navHostFragment.navController
+
+        //setting shit up
+        setSupportActionBar(vb.appBarMain.toolbar)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.title = ""
+//        supportActionBar?.subtitle = ""
+//        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+
+        //navController thing
+        navController = navHostFragment.navController
         val navView: NavigationView = vb.navView
         navController.navigate(R.id.nav_home)
+
+
+        // action bar setup
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+
+        // DrawerLayout navigation setup
         navView.setupWithNavController(navController)
-
-//      old implementation with dumb fkin snackbar
-//        vb.appBarMain.fabCreateNewNotebook.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-
-
-
         navView.menu.findItem(R.id.nav_github_link).setOnMenuItemClickListener {
             val my_repo = resources.getText(R.string.my_github_repo).toString()
             Intent(Intent.ACTION_VIEW).apply {
                 this.setData(Uri.parse(my_repo))
                 startActivity(this)
             }
+            drawerLayout.closeDrawers()
             true
         }
         navView.menu.findItem(R.id.nav_settings).setOnMenuItemClickListener {
-            Intent(this, SettingsActivity::class.java).apply {
-                startActivity(this)
-            }
+            navController.navigate(R.id.action_nav_home_to_settingsFragment)
+            drawerLayout.closeDrawers()
+            //            Toast
+//                .makeText(
+//                    this,
+//                    "Currently not implemented, sowwy :3",
+//                    Toast.LENGTH_LONG)
+//                .show()
             true
         }
         navView.menu.findItem(R.id.nav_openFile).setOnMenuItemClickListener {
-            TODO("bitch i ait did the thing with opening file :(")
-//            Intent(Intent.ACTION_GET_CONTENT).apply {
-//                this.setType("text/md/txt")
-//                this.addCategory(Intent.CATEGORY_OPENABLE)
-//                try{
-//                    startActivityForResult(Intent.createChooser(this, resources.getText(R.string.select_file_message)), FILE_SELECT_CODE)
-//                } catch (ex: android.content.ActivityNotFoundException) {
-//                    Toast.makeText(this@MainActivity,
-//                        resources.getText(R.string.err_no_file_manager),
-//                        Toast.LENGTH_LONG).show()
-//                }
-//            }
+//            TODO("bitch i ait did the thing with opening file :(")
+            Intent(Intent.ACTION_GET_CONTENT).apply {
+                this.setType("text/md/txt")
+                this.addCategory(Intent.CATEGORY_OPENABLE)
+                val a = 1
+                try{
+                    startActivityForResult(
+                        Intent.createChooser(
+                            this,
+                            resources.getText(R.string.select_file_message)
+                        ),
+                        a
+                    )
+                } catch (ex: android.content.ActivityNotFoundException) {
+                    Toast.makeText(this@MainActivity,
+                        resources.getText(R.string.err_no_file_manager),
+                        Toast.LENGTH_LONG).show()
+                }
+            }
+            drawerLayout.closeDrawers()
             true
         }
     }
@@ -109,17 +135,4 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId)
-    {
-        R.id.item_action_settings -> {
-            // LAUNCH SETTINGS ACTIVITY
-//            vb.drawerLayout.openDrawer(GravityCompat.START)
-            /*return*/ true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
-
 }

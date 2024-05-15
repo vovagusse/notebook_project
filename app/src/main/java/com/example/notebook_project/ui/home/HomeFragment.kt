@@ -51,6 +51,11 @@ class HomeFragment : Fragment(), SelectListener{
         rw.layoutManager = GridLayoutManager(papaContext, 2)
         rw.addItemDecoration(GridSpacingItemDecoration(2, 16, true))
 
+        val fab_createNewNotebook = vb.fabCreateNewNotebook
+        fab_createNewNotebook.setOnClickListener{
+            findNavController().navigate(R.id.action_nav_home_to_editorFragment)
+        }
+
         return root
     }
 

@@ -6,19 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.editor.EditorFragment">
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_saveNotebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:focusable="true"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:contentDescription="fuck off please"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_save_outlined" />
-
+    <include
+        android:id="@+id/content_editor"
+        layout="@layout/content_editor"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

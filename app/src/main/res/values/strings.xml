@@ -25,4 +25,8 @@
     <string name="my_github_repo" translatable="false">https://github.com/vovagusse/notebook_project</string>
     <string name="err_no_file_manager">No file manager installed. Please download a file manager/explorer.</string>
     <string name="select_file_message">Select a file to open (.txt / .md)</string>
+    <string name="preview_label">Notebook Preview</string>
+    <string name="editor_label">Editing</string>
+    <string name="hint_notebook_name">Title</string>
+    <string name="hint_notebook_body">Notebook body</string>
 </resources>

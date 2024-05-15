@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.notebook_project.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_previewFragment"
@@ -19,11 +19,14 @@
         <action
             android:id="@+id/action_nav_home_to_editorFragment"
             app:destination="@id/editorFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_preview"
         android:name="com.example.notebook_project.ui.preview.PreviewFragment"
-        android:label="fragment_preview"
+        android:label="@string/preview_label"
         tools:layout="@layout/fragment_preview" >
         <action
             android:id="@+id/action_nav_preview_to_nav_home"
@@ -36,7 +39,7 @@
     <fragment
         android:id="@+id/editorFragment"
         android:name="com.example.notebook_project.ui.editor.EditorFragment"
-        android:label="fragment_editor"
+        android:label="@string/editor_label"
         tools:layout="@layout/fragment_editor" >
         <action
             android:id="@+id/action_editorFragment_to_nav_home"
@@ -44,6 +47,14 @@
         <action
             android:id="@+id/action_editorFragment_to_nav_preview"
             app:destination="@id/nav_preview" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.notebook_project.ui.editor.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
 
 </navigation>
