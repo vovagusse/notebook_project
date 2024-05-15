@@ -12,10 +12,15 @@ import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.ui.home.SelectListener
 
 class NotebookRecyclerViewAdapter (
-    var notebooks: MutableList<Notebook>,
+    var notebooks: List<Notebook>,
     var context: Context,
     var selectListener: SelectListener
 ) : RecyclerView.Adapter<NotebookRecyclerViewAdapter.NotebookViewHolder>() {
+
+    init {
+        notebooks = emptyList()
+    }
+
     class NotebookViewHolder(iv: View) : RecyclerView.ViewHolder(iv){
         var tv_date_created: TextView
         var tv_name: TextView
@@ -56,11 +61,16 @@ class NotebookRecyclerViewAdapter (
         holder.tv_date_created.text = "${gs(R.string.created_on)}: ${nb.metadata.dateTimeLastEdited}"
 
         holder.container.setOnClickListener{
-            this.selectListener.onItemClicked(this.notebooks.get(pos))
+            this.selectListener.onItemClicked(this.notebooks[pos])
         }
     }
 
     private fun gs(id: Int): String{
         return this.context.resources.getString(id)
+    }
+
+    fun setData(notebook: List<Notebook>?) {
+        notebook?.let { notebooks = it }
+        notifyDataSetChanged()
     }
 }

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Notebook (
     @PrimaryKey(true)
     @ColumnInfo("id")
-    val id: Long,
+    val id: Long = 0,
 
     @ColumnInfo("uri")
     val uri: String,

@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentHomeBinding
 import com.example.notebook_project.db.entities.Notebook
-import com.example.notebook_project.util.notebookTemplate
+import com.example.notebook_project.db.viewmodels.NotebookViewModel
 import com.example.notebook_project.ui.home.adapter.NotebookRecyclerViewAdapter
 import com.example.notebook_project.ui.home.rwdecoration.GridSpacingItemDecoration
 
@@ -20,6 +21,7 @@ class HomeFragment : Fragment(), SelectListener{
 
     private var _binding: FragmentHomeBinding? = null
     private val vb get() = _binding!!
+    private lateinit var notebookViewModel: NotebookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,19 +37,19 @@ class HomeFragment : Fragment(), SelectListener{
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = vb.root
 
+        notebookViewModel = ViewModelProvider(this)[NotebookViewModel::class.java]
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
         val papaContext = container?.context
-        val my_objects = notebookTemplate()
-        my_objects.addAll(notebookTemplate())
-        my_objects.addAll(notebookTemplate())
-        my_objects.addAll(notebookTemplate())
+
+        val adapter = papaContext?.let { NotebookRecyclerViewAdapter(emptyList<Notebook>(), it, this) }
+        notebookViewModel._notebooks.observe(viewLifecycleOwner, Observer {notebook ->
+            adapter?.setData(notebook)
+        })
+
         val rw = vb.rvNotebooks
-        val my_adapter = papaContext?.let{
-            NotebookRecyclerViewAdapter(my_objects, it, this)
-        }
-        rw.adapter = my_adapter
+        rw.adapter = adapter
         rw.layoutManager = GridLayoutManager(papaContext, 2)
         rw.addItemDecoration(GridSpacingItemDecoration(2, 16, true))
 

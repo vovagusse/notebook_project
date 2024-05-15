@@ -12,4 +12,8 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     suspend fun addNotebook(notebook: Notebook){
         notebookDao.upsertNewNotebook(notebook)
     }
+
+    suspend fun getNotebookByName(name: String) : Notebook {
+        return notebookDao.getNotebookByName(name)
+    }
 }
