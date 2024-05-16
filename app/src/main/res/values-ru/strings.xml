@@ -25,4 +25,10 @@
     <string name="hint_notebook_body">Тело блокнота</string>
     <string name="err_no_notebook_title">Вы не ввели название.</string>
     <string name="success_add_notebook">Ваш блокнот был успешно создан</string>
+    <string name="add_label">Создание блокнота</string>
+    <string name="err_not_found_file">Файл не найден</string>
+    <string name="success_edit_notebook">Ваш блокнот был успешно сохранён</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="confiem_delete_title">Удалить блокнот?</string>
 </resources>

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,11 +15,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentHomeBinding
 import com.example.notebook_project.db.entities.Notebook
-import com.example.notebook_project.db.viewmodels.NotebookViewModel
+import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.ui.home.adapter.NotebookRecyclerViewAdapter
 import com.example.notebook_project.ui.home.rwdecoration.GridSpacingItemDecoration
 
-class HomeFragment : Fragment(), SelectListener{
+class HomeFragment : Fragment(){
 
     private var _binding: FragmentHomeBinding? = null
     private val vb get() = _binding!!
@@ -43,10 +45,13 @@ class HomeFragment : Fragment(), SelectListener{
 //        }
         val papaContext = container?.context
 
-        val adapter = papaContext?.let { NotebookRecyclerViewAdapter(emptyList<Notebook>(), it, this) }
-        notebookViewModel._notebooks.observe(viewLifecycleOwner, Observer {notebook ->
+        val adapter = papaContext?.let {
+            NotebookRecyclerViewAdapter(it)
+        }
+        notebookViewModel.notebooks.observe(viewLifecycleOwner, Observer { notebook ->
             adapter?.setData(notebook)
         })
+
 
         val rw = vb.rvNotebooks
         rw.adapter = adapter
@@ -55,7 +60,7 @@ class HomeFragment : Fragment(), SelectListener{
 
         val fab_createNewNotebook = vb.fabCreateNewNotebook
         fab_createNewNotebook.setOnClickListener{
-            findNavController().navigate(R.id.action_nav_home_to_editorFragment)
+            findNavController().navigate(R.id.action_nav_home_to_addFragment)
         }
 
         return root
@@ -75,8 +80,24 @@ class HomeFragment : Fragment(), SelectListener{
 //            homeViewModel?.changeSpansTo(2)
 //        }
     }
-
-    override fun onItemClicked(notebook: Notebook) {
-        findNavController().navigate(R.id.action_nav_home_to_previewFragment)
-    }
+//
+//    fun performOptionsMenuClick(position: Int){
+//        val popupMenu = PopupMenu(requireContext(),
+//            vb.rvNotebooks[position].findViewById(R.id.ib_item_context_menu_options))
+//        popupMenu.inflate(R.menu.home_item_context_menu)
+//        popupMenu.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.item_context_edit -> {
+//                    val action = HomeFragmentDirections.actionNavHomeToEditFragment(vb.rvNotebooks[position].)
+//                }
+//                R.id.item_context_delete -> {
+//
+//                }
+//                else -> {
+//
+//                }
+//            }
+//            true
+//        }
+//    }
 }

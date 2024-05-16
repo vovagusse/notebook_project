@@ -9,8 +9,16 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     val readAllData: LiveData<List<Notebook>> =
         notebookDao.getAllNotebooksOrderedNameASC()
 
-    suspend fun addNotebook(notebook: Notebook){
+    suspend fun upsertNotebook(notebook: Notebook){
         notebookDao.upsertNewNotebook(notebook)
+    }
+
+    suspend fun deleteNotebook(notebook: Notebook){
+        notebookDao.deleteNotebook(notebook)
+    }
+
+    suspend fun deleteNotebookByName(name: String){
+        notebookDao.deleteByName(name)
     }
 
     suspend fun getNotebookByName(name: String) : Notebook {

@@ -17,53 +17,47 @@ interface NotebookDao {
 
     //Select ALL queries
 
-    @Query("SELECT * FROM notebook ORDER BY metadatanotebook_name ASC")
+    @Query("SELECT * FROM notebook ORDER BY notebook_name ASC")
     fun getAllNotebooksOrderedNameASC(): LiveData<List<Notebook>>
 
-    @Query("SELECT * FROM notebook ORDER BY metadatanotebook_name DESC")
+    @Query("SELECT * FROM notebook ORDER BY notebook_name DESC")
     fun getAllNotebooksOrderedNameDESC(): LiveData<List<Notebook>>
 
-    @Query("SELECT * FROM notebook ORDER BY metadatadateTimeOfCreation ASC")
+    @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeOfCreation ASC")
     fun getAllNotebooksOrderedTimeCreationASC(): LiveData<List<Notebook>>
 
-    @Query("SELECT * FROM notebook ORDER BY metadatadateTimeOfCreation DESC")
+    @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeOfCreation DESC")
     fun getAllNotebooksOrderedTimeCreationDESC(): LiveData<List<Notebook>>
 
-    @Query("SELECT * FROM notebook ORDER BY metadatadateTimeLastEdited ASC")
+    @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeLastEdited ASC")
     fun getAllNotebooksOrderedTimeEditedASC(): LiveData<List<Notebook>>
 
-    @Query("SELECT * FROM notebook ORDER BY metadatadateTimeLastEdited DESC")
+    @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeLastEdited DESC")
     fun getAllNotebooksOrderedTimeEditedDESC(): LiveData<List<Notebook>>
 
-
-    //Search queries
-    @Query("SELECT * FROM notebook WHERE id = :notebook_id")
-    suspend fun getNotebookById(
-        notebook_id: Long): Notebook
-
-    @Query("SELECT * FROM notebook WHERE metadatanotebook_name = :notebook_name")
+    @Query("SELECT * FROM notebook WHERE notebook_name = :notebook_name")
     suspend fun getNotebookByName(
         notebook_name: String) : Notebook
 
     @Query("SELECT * FROM notebook " +
-            "WHERE metadatadateTimeOfCreation = :notebook_dateOfCreation")
+            "WHERE notebook_dateTimeOfCreation = :notebook_dateOfCreation")
     suspend fun getNotebookByDateOfCreation(
         notebook_dateOfCreation: String) : Notebook
 
     @Query("SELECT * FROM notebook " +
-            "WHERE metadatadateTimeLastEdited = :notebook_dateTimeLastEdited")
+            "WHERE notebook_dateTimeLastEdited = :notebook_dateTimeLastEdited")
     suspend fun getNotebookByDateLastEdited(
         notebook_dateTimeLastEdited: String) : Notebook
 
 
+
     //Deletion queries
+
     @Delete
     suspend fun deleteNotebook(notebook: Notebook)
 
-    @Query("DELETE FROM notebook WHERE id = :notebook_id")
-    suspend fun deleteById(notebook_id: Long)
 
     @Query("DELETE FROM notebook " +
-            "WHERE metadatanotebook_name = :notebook_name")
+            "WHERE notebook_name = :notebook_name")
     suspend fun deleteByName(notebook_name: String)
 }

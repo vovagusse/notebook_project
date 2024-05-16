@@ -14,4 +14,9 @@
         android:bottomRightRadius="@dimen/rectangle_radius"
         android:topLeftRadius="@dimen/rectangle_radius"
         android:topRightRadius="@dimen/rectangle_radius" />
+
+
+    <stroke
+        android:color="@color/blurple_white"
+        android:width="3dp"/>
 </shape>

@@ -18,6 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:focusable="true"
+        style="@style/Theme.Notebook_project.FabAdaptive"
+        app:tint="@null"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
         android:contentDescription="fuck off please"

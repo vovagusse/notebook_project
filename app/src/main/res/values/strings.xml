@@ -26,10 +26,15 @@
     <string name="err_no_file_manager">No file manager installed. Please download a file manager/explorer.</string>
     <string name="select_file_message">Select a file to open (.txt / .md)</string>
     <string name="preview_label">Notebook Preview</string>
+    <string name="add_label">Creating notebook</string>
     <string name="editor_label">Editing</string>
     <string name="hint_notebook_name">Title</string>
     <string name="hint_notebook_body">Notebook body</string>
     <string name="err_no_notebook_title">No title was specified.</string>
-    <string name="success_add_notebook" >Your notebook was successfully created</string>
+    <string name="success_add_notebook">Your notebook was successfully created</string>
     <string name="err_not_found_file">File not found.</string>
+    <string name="success_edit_notebook">Successfully saved edited notebook</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="confiem_delete_title">Do you want to delete the notebook?</string>
 </resources>

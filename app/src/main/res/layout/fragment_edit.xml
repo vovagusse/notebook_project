@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.editor.EditFragment">
+
+    <EditText
+        android:id="@+id/et_edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        style="@style/Theme.Notebook_project.EditTextStyle"
+        android:hint="@string/hint_notebook_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_edit_body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="95dp"
+        style="@style/Theme.Notebook_project.EditTextStyle"
+        android:gravity="top"
+        android:hint="@string/hint_notebook_body"
+        app:layout_constraintBottom_toTopOf="@+id/sv_edit_formatting_options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_edit_title" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_editor_save"
+        style="@style/Theme.Notebook_project.FabAdaptive"
+        app:tint="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="1"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_save_outlined"
+        android:tooltipText="fak off man"
+        app:layout_constraintBottom_toTopOf="@+id/sv_edit_formatting_options"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:id="@+id/sv_edit_formatting_options"
+        style="@style/Theme.Notebook_project.RecyclerViewItem"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_formatting_options_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <ToggleButton
+                android:id="@+id/tb_edit_bold"
+                style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
+
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/ic_bold" />
+
+            <ToggleButton
+                android:id="@+id/tb_edit_italic"
+                style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/ic_italic" />
+
+            <ToggleButton
+                android:id="@+id/tb_edit_underlined"
+                style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/ic_underlined" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

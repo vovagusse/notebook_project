@@ -11,10 +11,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.notebook_project.R
-import com.example.notebook_project.databinding.FragmentEditorBinding
+import com.example.notebook_project.databinding.FragmentAddBinding
 import com.example.notebook_project.db.entities.Notebook
-import com.example.notebook_project.db.entities.NotebookMetadata
-import com.example.notebook_project.db.viewmodels.NotebookViewModel
+import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import io.noties.markwon.Markwon
 import io.noties.markwon.editor.MarkwonEditor
 import io.noties.markwon.editor.MarkwonEditorTextWatcher
@@ -22,10 +21,10 @@ import java.util.Date
 import java.util.concurrent.Executors
 
 
-class EditorFragment : Fragment() {
+class AddFragment : Fragment() {
     private lateinit var et_body: EditText
     private lateinit var et_title: EditText
-    private var _binding: FragmentEditorBinding? = null
+    private var _binding: FragmentAddBinding? = null
     private val vb
         get() = _binding!!
     private lateinit var notebookViewModel : NotebookViewModel
@@ -35,21 +34,22 @@ class EditorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditorBinding.inflate(inflater, container, false)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
         val root: View = vb.root
         val papaContext = container?.context
 
         notebookViewModel = ViewModelProvider(this)[NotebookViewModel::class.java]
 
-        //                contentEditor is an <include> tag id lol
-        val fab_save = vb.contentEditor.fabEditorSave
+        val fab_save = vb.fabAddSave
         fab_save.setOnClickListener{
             insertNewNotebook()
         }
 
-        et_title = vb.contentEditor.etEditorTitle
-        et_body = vb.contentEditor.etEditorBody
-        val markwon = this.context?.let { Markwon.create(it) }
+        et_title = vb.etAddTitle
+        et_body = vb.etAddBody
+        val markwon = this.context?.let { Markwon
+            .create(it)
+        }
         val editor = markwon?.let { MarkwonEditor.create(it) }
 
         et_body.addTextChangedListener(editor?.let {
@@ -87,13 +87,11 @@ class EditorFragment : Fragment() {
         val currentDateTime : Date = Calendar.getInstance().time
         val notebookObj = Notebook(
             uri = notebookFilename,
-            metadata = NotebookMetadata(
-                notebook_name = notebookTitle,
-                dateTimeOfCreation = currentDateTime.toString(),
-                dateTimeLastEdited = currentDateTime.toString()
-            )
+            notebook_name = notebookTitle,
+            dateTimeOfCreation = currentDateTime.toString(),
+            dateTimeLastEdited = currentDateTime.toString()
         )
-        notebookViewModel.addNotebook(notebookObj)
+        notebookViewModel.upsertNotebook(notebookObj)
 
         val goodMessage = this.context?.resources?.getString(R.string.success_add_notebook)
         Toast.makeText(this.context, "$goodMessage", Toast.LENGTH_LONG).show()

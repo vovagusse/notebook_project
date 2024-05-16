@@ -10,6 +10,7 @@
     >
 
     <TextView
+        android:background="@android:color/transparent"
         android:id="@+id/tv_item_notebook_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,11 +20,12 @@
         android:text="Name of notebook"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/ib_options"
+        app:layout_constraintEnd_toStartOf="@+id/ib_item_context_menu_options"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:background="@android:color/transparent"
         android:id="@+id/tv_item_date_created"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_notebook_body" />
 
     <TextView
+        android:background="@android:color/transparent"
         android:id="@+id/tv_item_date_edited"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -56,6 +59,7 @@
 
 
     <TextView
+        android:background="@android:color/transparent"
         android:id="@+id/tv_item_notebook_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -87,13 +91,12 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageButton
-        android:id="@+id/ib_options"
+        android:id="@+id/ib_item_context_menu_options"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="Options to quickly edit notebook project"
-        android:theme="@style/Theme.Notebook_project.ImageButtonAdaptiveStyle"
+        android:theme="@style/Theme.Notebook_project.ImageButtonAdaptiveStyleTransparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tv_item_notebook_name"

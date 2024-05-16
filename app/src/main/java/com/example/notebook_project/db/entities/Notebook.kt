@@ -1,11 +1,15 @@
 package com.example.notebook_project.db.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "notebook",)
+
+@Parcelize
+@Entity(tableName = "notebook")
 data class Notebook (
     @PrimaryKey(true)
     @ColumnInfo("id")
@@ -14,6 +18,12 @@ data class Notebook (
     @ColumnInfo("uri")
     val uri: String,
 
-    @Embedded("metadata")
-    val metadata: NotebookMetadata
-)
+    @ColumnInfo("notebook_name")
+    val notebook_name: String,
+
+    @ColumnInfo("notebook_dateTimeOfCreation")
+    val dateTimeOfCreation: String,
+
+    @ColumnInfo("notebook_dateTimeLastEdited")
+    val dateTimeLastEdited: String
+) : Parcelable

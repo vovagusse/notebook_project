@@ -10,8 +10,8 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blurple_grey">#626478</color>
-    <color name="blurple_dark_grey">#403E57</color>
+    <color name="blurple_grey">#474759</color>
+    <color name="blurple_dark_grey">#3D364D</color>
     <color name="blurple_darker_grey">#1C1D26</color>
     <color name="blurple_darker_grey_50alpha">#801C1D26</color>
     <color name="blurple_white">#D9DCFF</color>
