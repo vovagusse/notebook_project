@@ -48,9 +48,13 @@ class HomeFragment : Fragment(){
         val adapter = papaContext?.let {
             NotebookRecyclerViewAdapter(it)
         }
-        notebookViewModel.notebooks.observe(viewLifecycleOwner, Observer { notebook ->
-            adapter?.setData(notebook)
-        })
+//        notebookViewModel.getAllNotebooks()
+//        notebookViewModel.print()
+
+        notebookViewModel.notebooks.observe(viewLifecycleOwner) {
+            adapter?.setData(it)
+            adapter?.notifyDataSetChanged()
+        }
 
 
         val rw = vb.rvNotebooks

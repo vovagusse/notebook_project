@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.notebook_project.db.dao.NotebookDao
 import com.example.notebook_project.db.entities.Notebook
+import com.example.notebook_project.util.Converters
 
 
 @Database(
@@ -13,6 +15,7 @@ import com.example.notebook_project.db.entities.Notebook
     entities = [Notebook::class],
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class NotebookDatabase : RoomDatabase() {
     abstract fun getNotebookDao(): NotebookDao
 

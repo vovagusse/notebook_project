@@ -20,7 +20,7 @@
             <corners
                 android:radius="@dimen/rectangle_radius"/>
             <stroke
-                android:color="@color/blurple_white"
+                android:color="@color/blurple_white_saturated"
                 android:width="3dp"/>
         </shape>
     </item>

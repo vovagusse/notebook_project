@@ -24,7 +24,17 @@
         <!-- manrope <3 -->
         <item name="android:fontFamily">@font/manrope</item>
         <item name="fontFamily">@font/manrope</item>
+        <item name="android:textColor">
+            @color/blurple_dark_grey
+        </item>
     </style>
+
+<style name="Theme.Notebook_project.TextInversedColors" parent="Theme.AppCompat.DayNight">
+    <item name="android:textColor">
+        @color/blurple_white
+    </item>
+</style>
+
 
     <style name="Theme.Notebook_project.NoActionBar">
         <item name="windowActionBar">true</item>

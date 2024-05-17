@@ -17,6 +17,7 @@
     <color name="blurple_white">#D9DCFF</color>
     <color name="blurple_white_50alpha">#D9DCFF</color>
     <color name="blurple_white_desat">#F0F1FF</color>
+    <color name="blurple_white_saturated">#CCD0FF</color>
 
     <color name="green_tick_yes" >#69F0AE</color>
     <color name="green_tick_nooooo" >#F06969</color>

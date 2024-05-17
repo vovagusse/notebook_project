@@ -10,14 +10,15 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentAddBinding
 import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
+
 import io.noties.markwon.Markwon
 import io.noties.markwon.editor.MarkwonEditor
 import io.noties.markwon.editor.MarkwonEditorTextWatcher
-import java.util.Date
 import java.util.concurrent.Executors
 
 
@@ -82,19 +83,26 @@ class AddFragment : Fragment() {
             return false
         }
         val notebookFilename = makeFileName(notebookTitle)
+        val notebookBody = vb.etAddBody.text.toString()
 
         //new file and new record in db
-        val currentDateTime : Date = Calendar.getInstance().time
-        val notebookObj = Notebook(
-            uri = notebookFilename,
-            notebook_name = notebookTitle,
-            dateTimeOfCreation = currentDateTime.toString(),
-            dateTimeLastEdited = currentDateTime.toString()
-        )
+        val currentDateTime = Calendar.getInstance().time
+        val notebookObj =
+            Notebook(
+                uri = notebookFilename,
+                notebook_name = notebookTitle,
+                dateTimeOfCreation = currentDateTime,
+                dateTimeLastEdited = currentDateTime
+            )
         notebookViewModel.upsertNotebook(notebookObj)
+        notebookViewModel.saveNotebook(notebookFilename, notebookBody)
 
         val goodMessage = this.context?.resources?.getString(R.string.success_add_notebook)
         Toast.makeText(this.context, "$goodMessage", Toast.LENGTH_LONG).show()
+
+        val action = AddFragmentDirections.actionAddFragmentToNavPreview(notebookObj)
+        findNavController().navigate(action)
+
         return true
 }
 

@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
+import androidx.room.TypeConverters
 import androidx.room.Upsert
 import com.example.notebook_project.db.entities.Notebook
+import com.example.notebook_project.util.Converters
 
 
 @Dao
+@TypeConverters(Converters::class)
 interface NotebookDao {
     //Upsert query
     @Upsert(entity = Notebook::class)
@@ -18,36 +21,38 @@ interface NotebookDao {
     //Select ALL queries
 
     @Query("SELECT * FROM notebook ORDER BY notebook_name ASC")
-    fun getAllNotebooksOrderedNameASC(): LiveData<List<Notebook>>
+    fun getAllNotebooksOrderedByNameASC(): LiveData<List<Notebook>>
 
     @Query("SELECT * FROM notebook ORDER BY notebook_name DESC")
-    fun getAllNotebooksOrderedNameDESC(): LiveData<List<Notebook>>
+    fun getAllNotebooksOrderedByNameDESC(): LiveData<List<Notebook>>
 
     @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeOfCreation ASC")
-    fun getAllNotebooksOrderedTimeCreationASC(): LiveData<List<Notebook>>
+    fun getAllNotebooksOrderedByTimeCreationASC(): LiveData<List<Notebook>>
 
     @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeOfCreation DESC")
-    fun getAllNotebooksOrderedTimeCreationDESC(): LiveData<List<Notebook>>
+    fun getAllNotebooksOrderedByTimeCreationDESC(): LiveData<List<Notebook>>
 
     @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeLastEdited ASC")
-    fun getAllNotebooksOrderedTimeEditedASC(): LiveData<List<Notebook>>
+    fun getAllNotebooksOrderedByTimeEditedASC(): LiveData<List<Notebook>>
 
     @Query("SELECT * FROM notebook ORDER BY notebook_dateTimeLastEdited DESC")
-    fun getAllNotebooksOrderedTimeEditedDESC(): LiveData<List<Notebook>>
+    fun getAllNotebooksOrderedByTimeEditedDESC(): LiveData<List<Notebook>>
 
+
+    // find queries
     @Query("SELECT * FROM notebook WHERE notebook_name = :notebook_name")
     suspend fun getNotebookByName(
         notebook_name: String) : Notebook
 
-    @Query("SELECT * FROM notebook " +
-            "WHERE notebook_dateTimeOfCreation = :notebook_dateOfCreation")
-    suspend fun getNotebookByDateOfCreation(
-        notebook_dateOfCreation: String) : Notebook
-
-    @Query("SELECT * FROM notebook " +
-            "WHERE notebook_dateTimeLastEdited = :notebook_dateTimeLastEdited")
-    suspend fun getNotebookByDateLastEdited(
-        notebook_dateTimeLastEdited: String) : Notebook
+//    @Query("SELECT * FROM notebook " +
+//            "WHERE notebook_dateTimeOfCreation = :notebook_dateOfCreation")
+//    suspend fun getNotebookByDateOfCreation(
+//        notebook_dateOfCreation: String) : Notebook
+//
+//    @Query("SELECT * FROM notebook " +
+//            "WHERE notebook_dateTimeLastEdited = :notebook_dateTimeLastEdited")
+//    suspend fun getNotebookByDateLastEdited(
+//        notebook_dateTimeLastEdited: String) : Notebook
 
 
 

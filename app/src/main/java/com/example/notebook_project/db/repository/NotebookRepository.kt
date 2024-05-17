@@ -1,27 +1,27 @@
 package com.example.notebook_project.db.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.notebook_project.db.dao.NotebookDao
 import com.example.notebook_project.db.entities.Notebook
 
-class NotebookRepository(private val notebookDao: NotebookDao) {
+interface NotebookRepository {
 
-    val readAllData: LiveData<List<Notebook>> =
-        notebookDao.getAllNotebooksOrderedNameASC()
 
-    suspend fun upsertNotebook(notebook: Notebook){
-        notebookDao.upsertNewNotebook(notebook)
-    }
+    //update/insert
+    suspend fun upsertNotebook(notebook: Notebook)
+    //getall queries
+    suspend fun getAllNotebooksOrderedByNameASC(): LiveData<List<Notebook>>
+    suspend fun getAllNotebooksOrderedByNameDESC(): LiveData<List<Notebook>>
+    suspend fun getAllNotebooksOrderedByTimeCreationASC(): LiveData<List<Notebook>>
+    suspend fun getAllNotebooksOrderedByTimeCreationDESC(): LiveData<List<Notebook>>
+    suspend fun getAllNotebooksOrderedByTimeEditedASC(): LiveData<List<Notebook>>
+    suspend fun getAllNotebooksOrderedByTimeEditedDESC(): LiveData<List<Notebook>>
 
-    suspend fun deleteNotebook(notebook: Notebook){
-        notebookDao.deleteNotebook(notebook)
-    }
+    //find query
+    suspend fun getNotebookByName(name: String) : Notebook
 
-    suspend fun deleteNotebookByName(name: String){
-        notebookDao.deleteByName(name)
-    }
-
-    suspend fun getNotebookByName(name: String) : Notebook {
-        return notebookDao.getNotebookByName(name)
-    }
+    //delete query
+    suspend fun deleteNotebook(notebook: Notebook)
+    suspend fun deleteNotebookByName(name: String)
 }

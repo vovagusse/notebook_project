@@ -6,6 +6,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 
 @Parcelize
@@ -22,8 +23,8 @@ data class Notebook (
     val notebook_name: String,
 
     @ColumnInfo("notebook_dateTimeOfCreation")
-    val dateTimeOfCreation: String,
+    val dateTimeOfCreation: Date,
 
     @ColumnInfo("notebook_dateTimeLastEdited")
-    val dateTimeLastEdited: String
+    val dateTimeLastEdited: Date
 ) : Parcelable
