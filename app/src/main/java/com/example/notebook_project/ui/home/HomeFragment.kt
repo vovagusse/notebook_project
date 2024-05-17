@@ -50,15 +50,11 @@ class HomeFragment : Fragment(){
         }
 //        notebookViewModel.getAllNotebooks()
 //        notebookViewModel.print()
-
-        notebookViewModel.notebooks.observe(viewLifecycleOwner) {
-            adapter?.setData(it)
-            adapter?.notifyDataSetChanged()
+        notebookViewModel._notebooks.observe(viewLifecycleOwner) {notebooks ->
+            adapter?.setListContent(notebooks)
         }
-
-
         val rw = vb.rvNotebooks
-        rw.adapter = adapter
+        rw.setAdapter(adapter)
         rw.layoutManager = GridLayoutManager(papaContext, 2)
         rw.addItemDecoration(GridSpacingItemDecoration(2, 16, true))
 

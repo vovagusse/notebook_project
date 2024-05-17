@@ -7,15 +7,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.notebook_project.db.NotebookDatabase
 import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.db.repository.NotebookRepository
-import com.example.notebook_project.db.repository.NotebookRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Date
 
@@ -23,9 +20,8 @@ import java.util.Date
 @OptIn(ExperimentalCoroutinesApi::class)
 class NotebookViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _notebooks = MutableLiveData<List<Notebook>>()
-    val notebooks : LiveData<List<Notebook>>
-        get() = _notebooks
+    var _notebooks : LiveData<List<Notebook>>
+
     private var _storageType = MutableLiveData(StorageType.INTERNAL)
 //    val storageType : LiveData<StorageType> = _storageType
     private var _sortType = MutableLiveData(SortType.ASCENDING)
@@ -34,19 +30,16 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 //    val sortParam : LiveData<SortingParameter> = _sortParam
     private val repository: NotebookRepository
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.i("print", "cleared vm")
+    init {
+        Log.i("print", "viewmodel init")
+        repository = NotebookRepository(application)
+        _notebooks = repository.get_notebooks()
     }
 
-    init {
-        val notebookDao = NotebookDatabase
-            .getDatabase(application)
-            .getNotebookDao()
-
-        repository = NotebookRepositoryImpl(notebookDao)
-        getAllNotebooks()
+    override fun onCleared() {
         this.print()
+        super.onCleared()
+        Log.i("print", "cleared viewmodel")
     }
 
     fun deleteNotebook(notebook: Notebook){
@@ -63,6 +56,7 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun upsertNotebook(notebook: Notebook){
+        Log.i("print", "upsertNotebook: $notebook")
         viewModelScope.launch (Dispatchers.IO){
             repository.upsertNotebook(notebook)
         }
@@ -78,6 +72,7 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 //    }
 
     fun getAllNotebooks(){
+        Log.i("print", "getAllNotebooks: called")
         when (_sortType.value) {
             SortType.ASCENDING -> {
                 getAllNotebooksByParamAsc()
@@ -92,42 +87,28 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
     private fun getAllNotebooksByParamAsc(){
         when (_sortParam.value){
             SortingParameter.BY_NAME -> {
-                val result = viewModelScope.async {
-                    withContext(Dispatchers.IO){
-                        repository.getAllNotebooksOrderedByNameASC()
-                    }
+                viewModelScope.launch (Dispatchers.Main) {
+                    delay(500)
 
-                }
-                result.invokeOnCompletion {
-                    if (it == null){
-                        this@NotebookViewModel._notebooks.value = result.getCompleted().value
-                    }
+                    _notebooks =
+                        repository.getAllNotebooksOrderedByNameASC()
                 }
             }
             SortingParameter.BY_DATE_OF_CREATION -> {
-                val result = viewModelScope.async {
-                    withContext(Dispatchers.IO){
-                        repository.getAllNotebooksOrderedByTimeCreationASC()
-                    }
+                viewModelScope.launch (Dispatchers.Main){
+                    delay(500)
 
-                }
-                result.invokeOnCompletion {
-                    if (it == null){
-                        this@NotebookViewModel._notebooks.value = result.getCompleted().value
-                    }
+                    _notebooks =
+                        repository.getAllNotebooksOrderedByTimeCreationASC()
                 }
             }
             SortingParameter.BY_DATE_LAST_EDITED -> {
-                val result = viewModelScope.async {
-                    withContext(Dispatchers.IO){
-                        repository.getAllNotebooksOrderedByTimeEditedASC()
-                    }
+                viewModelScope.launch (Dispatchers.Main) {
+                    delay(500)
 
-                }
-                result.invokeOnCompletion {
-                    if (it == null){
-                        this@NotebookViewModel._notebooks.value = result.getCompleted().value
-                    }
+                    _notebooks =
+                        repository.getAllNotebooksOrderedByTimeEditedASC()
+
                 }
             }
             null -> {}
@@ -137,41 +118,28 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
     private fun getAllNotebooksByParamDesc() {
         when (_sortParam.value){
             SortingParameter.BY_NAME -> {
-                val result = viewModelScope.async {
-                    withContext(Dispatchers.IO){
-                        repository.getAllNotebooksOrderedByNameDESC()
-                    }
+                viewModelScope.launch (Dispatchers.Main) {
+                    delay(500)
 
-                }
-                result.invokeOnCompletion {
-                    if (it == null){
-                        this@NotebookViewModel._notebooks.value = result.getCompleted().value
-                    }
+                    _notebooks=
+                        repository.getAllNotebooksOrderedByNameDESC()
                 }
             }
             SortingParameter.BY_DATE_OF_CREATION -> {
-                val result = viewModelScope.async {
-                    withContext(Dispatchers.IO){
+                viewModelScope.launch (Dispatchers.Main){
+                    delay(500)
+
+                    _notebooks=
                         repository.getAllNotebooksOrderedByTimeCreationDESC()
-                    }
-                }
-                result.invokeOnCompletion {
-                    if (it == null){
-                        this@NotebookViewModel._notebooks.value = result.getCompleted().value
-                    }
                 }
             }
             SortingParameter.BY_DATE_LAST_EDITED -> {
-                val result = viewModelScope.async {
-                    withContext(Dispatchers.IO){
-                        repository.getAllNotebooksOrderedByTimeEditedDESC()
-                    }
+                viewModelScope.launch (Dispatchers.Main) {
+                    delay(500)
 
-                }
-                result.invokeOnCompletion {
-                    if (it == null){
-                        this@NotebookViewModel._notebooks.value = result.getCompleted().value
-                    }
+                    _notebooks=
+                        repository.getAllNotebooksOrderedByTimeEditedDESC()
+
                 }
             }
             null -> {}
@@ -180,14 +148,17 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 
     fun changeSortType(newSortType: SortType) {
         _sortType.value = newSortType
+        getAllNotebooks()
     }
 
     fun changeStorageType(newStorageType: StorageType){
         _storageType.value = newStorageType
+        getAllNotebooks()
     }
 
     fun changeSortParam(sortParam: SortingParameter){
         _sortParam.value = sortParam
+        getAllNotebooks()
     }
 
     //==================================================================================

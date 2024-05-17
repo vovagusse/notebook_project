@@ -21,10 +21,6 @@ class NotebookRecyclerViewAdapter (
         fun onOptionsMenuClicked(pos: Int)
     }
     private var notebooks : List<Notebook> = ArrayList(0)
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     class NotebookViewHolder(iv: View) : RecyclerView.ViewHolder(iv){
         var tv_date_created: TextView
@@ -81,8 +77,10 @@ class NotebookRecyclerViewAdapter (
         return this.context.resources.getString(id)
     }
 
-    fun setData(notebook: List<Notebook>?) {
-        notebook?.let { notebooks = it }
+    fun setListContent(notebooks: List<Notebook>?) {
+        notebooks?.let{
+            this.notebooks = it
+        }
         notifyDataSetChanged()
     }
 
