@@ -103,6 +103,9 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+    //splash api
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
     //SIKE!!! this one uses jetpack compose!!
 //    val version = "0.16.0"
 //    implementation("com.mikepenz:multiplatform-markdown-renderer-android:${version}")

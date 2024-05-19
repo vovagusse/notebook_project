@@ -1,14 +1,6 @@
 package com.example.notebook_project.db.repository
 
-enum class StorageType {
-    INTERNAL,
-    EXTERNAL
+enum class StorageType(val v: Int) {
+    INTERNAL(0),
+    EXTERNAL(1)
 }
-
-//fun convertStringToStorageType(storageTypeStr: String) : StorageType? {
-//    return when(storageTypeStr){
-//        "INTERNAL" -> StorageType.INTERNAL
-//        "EXTERNAL" -> StorageType.EXTERNAL
-//        else -> null
-//    }
-//}

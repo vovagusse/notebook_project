@@ -53,24 +53,13 @@
     <string name="theme_system">System</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
-    <string name="setting_key_app_theme">app_theme</string>
-    <string name="setting_key_storage_type">storage_type</string>
-    <string name="setting_key_sort_type">sort_type</string>
-    <string name="setting_key_sorting_parameter">sorting_parameter</string>
-    <string name="setting_key_folder">folder</string>
+    <string name="setting_key_app_theme" translatable="false">app_theme</string>
+    <string name="setting_key_storage_type" translatable="false">storage_type</string>
+    <string name="setting_key_sort_type" translatable="false">sort_order</string>
+    <string name="setting_key_sorting_parameter" translatable="false">sorting_parameter</string>
+    <string name="setting_key_folder" translatable="false">folder</string>
     <string name="settings_item_folder">Select folder</string>
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="messages_header" translatable="false">Messages</string>
+    <string name="err_already_exists">Notebook already exists</string>
 </resources>

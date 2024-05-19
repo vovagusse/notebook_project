@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Notebook_project.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/blurple_grey</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_my_app_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.Notebook_project</item>
+    </style>
+</resources>

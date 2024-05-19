@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
     <PreferenceCategory android:title="@string/settings_group_look_and_feel">
         <ListPreference
             android:defaultValue="SYSTEM"
@@ -39,4 +41,4 @@
             android:key="@string/setting_key_sorting_parameter"
             android:title="@string/settings_item_sort_order_parameter" />
     </PreferenceCategory>
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>

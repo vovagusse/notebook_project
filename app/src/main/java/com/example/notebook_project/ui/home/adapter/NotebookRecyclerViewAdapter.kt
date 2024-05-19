@@ -1,10 +1,12 @@
 package com.example.notebook_project.ui.home.adapter
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
@@ -17,14 +19,12 @@ import com.example.notebook_project.ui.home.HomeFragmentDirections
 
 class NotebookRecyclerViewAdapter (
     var context: Context,
+    private var recyclerViewInterface: RecyclerViewInterface
 )
 //    : RecyclerView.Adapter<NotebookRecyclerViewAdapter.NotebookViewHolder>()
     : ListAdapter<Notebook, NotebookRecyclerViewAdapter.NotebookViewHolder>(TASKS_COMPARATOR)
 {
 
-    interface OptionsMenuClickListener {
-        fun onOptionsMenuClicked(pos: Int)
-    }
     private var notebooks : List<Notebook> = ArrayList(0)
 
     class NotebookViewHolder(iv: View) : RecyclerView.ViewHolder(iv){
@@ -73,8 +73,30 @@ class NotebookRecyclerViewAdapter (
             holder.itemView.findNavController().navigate(action)
         }
 
-        holder.context_menu_button.setOnClickListener{
+        holder.container.setOnLongClickListener{
+            true
+        }
 
+        holder.context_menu_button.setOnClickListener{
+            val popup = PopupMenu(this.context, holder.context_menu_button)
+            popup.inflate(R.menu.home_item_context_menu)
+            popup.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.item_context_edit -> {
+                        val action = HomeFragmentDirections.actionNavHomeToPreviewFragment(nb)
+                        holder.itemView.findNavController().navigate(action)
+                    }
+                    R.id.item_context_delete  -> {
+                        recyclerViewInterface.onContextButtonDelete(position = pos)
+                    }
+
+                }
+                true
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                popup.setForceShowIcon(true)
+            }
+            popup.show()
         }
     }
 

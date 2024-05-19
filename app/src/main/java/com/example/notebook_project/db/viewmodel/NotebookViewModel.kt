@@ -71,13 +71,13 @@ class NotebookViewModel(
             SortOrder.DESCENDING -> {
                 return when (sortParam) {
                     SortingParameter.BY_NAME -> {
-                        notebooks.sortedBy {it.notebook_name}
+                        notebooks.sortedByDescending {it.notebook_name}
                     }
                     SortingParameter.BY_DATE_OF_CREATION -> {
-                        notebooks.sortedBy { it.dateTimeOfCreation }
+                        notebooks.sortedByDescending { it.dateTimeOfCreation }
                     }
                     SortingParameter.BY_DATE_LAST_EDITED -> {
-                        notebooks.sortedBy { it.dateTimeLastEdited }
+                        notebooks.sortedByDescending { it.dateTimeLastEdited }
                     }
                 }
             }
@@ -95,6 +95,11 @@ class NotebookViewModel(
             repository.deleteNotebookByName(name)
         }
     }
+
+    fun getNotebookByPosition(position: Int) : Notebook? =
+        this.notebookUiModel.value?.notebooks?.get(position)
+
+
     fun getNotebookByName(name: String) : Notebook? =
         this.notebookUiModel.value?.notebooks?.find { it.notebook_name == name }
 

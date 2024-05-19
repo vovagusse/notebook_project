@@ -1,16 +1,8 @@
 package com.example.notebook_project.db.repository
 
-enum class SortingParameter {
-    BY_NAME,
-    BY_DATE_OF_CREATION,
-    BY_DATE_LAST_EDITED
+enum class SortingParameter(val v: Int) {
+    BY_NAME(0),
+    BY_DATE_OF_CREATION(1),
+    BY_DATE_LAST_EDITED(2)
 }
 
-//fun convertStringToSortingParameter(sortParamStr: String) : SortingParameter? {
-//    return when(sortParamStr){
-//        "BY_NAME" -> SortingParameter.BY_NAME
-//        "BY_DATE_OF_CREATION" -> SortingParameter.BY_DATE_OF_CREATION
-//        "BY_DATE_LAST_EDITED" -> SortingParameter.BY_DATE_LAST_EDITED
-//        else -> null
-//    }
-//}

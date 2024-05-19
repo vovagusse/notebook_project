@@ -12,10 +12,3 @@ enum class SortOrder {
     DESCENDING
 }
 
-//fun convertStringToSortType(sortTypeStr: String) : SortOrder? {
-//    return when(sortTypeStr){
-//        "ASCENDING" -> SortOrder.ASCENDING
-//        "DESCENDING" -> SortOrder.DESCENDING
-//        else -> null
-//    }
-//}

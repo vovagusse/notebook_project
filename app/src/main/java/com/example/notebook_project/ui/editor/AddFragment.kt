@@ -4,6 +4,7 @@ import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.example.notebook_project.db.repository.UserPreferencesRepository
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
+import com.example.notebook_project.util.makeFileName
 
 import io.noties.markwon.Markwon
 import io.noties.markwon.editor.MarkwonEditor
@@ -55,8 +57,7 @@ class AddFragment : Fragment() {
             )
         )[NotebookViewModel::class.java]
 
-        val fab_save = vb.fabAddSave
-        fab_save.setOnClickListener{
+        vb.fabAddSave.setOnClickListener{
             insertNewNotebook()
         }
 
@@ -79,23 +80,23 @@ class AddFragment : Fragment() {
         return vb.root
     }
 
-    private fun makeFileName(notebookName: String) : String {
-        val spl = notebookName
-            .lowercase()
-            .removeSurrounding(" ")
-            .replace(" ", "_") + ".md"
-        return spl
-    }
-
     private fun insertNewNotebook() : Boolean {
 //        Toast.makeText(this.context, "not implemented :3", Toast.LENGTH_SHORT).show()
-        val notebookTitle = et_title.text.toString()
+        val notebookTitle = et_title.text.toString().removeSurrounding(" ")
+
         val errMessage = this
             .context?.resources?.getString(R.string.err_no_notebook_title)
+        val alreadyExists = resources.getString(R.string.err_already_exists)
         if (TextUtils.isEmpty(notebookTitle)){
             Toast.makeText(this.context, "$errMessage", Toast.LENGTH_LONG).show()
             return false
         }
+        val search = notebookViewModel.getNotebookByName(notebookTitle)
+        if (search!=null){
+            Toast.makeText(this.context, "$alreadyExists", Toast.LENGTH_LONG).show()
+            return false
+        }
+
         val notebookFilename = makeFileName(notebookTitle)
         val notebookBody = vb.etAddBody.text.toString()
 

@@ -47,4 +47,6 @@
     <string name="theme_system">Как в системе</string>
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Тёмная</string>
+    <string name="settings_item_folder">Выбрать папку</string>
+    <string name="err_already_exists">Блокнот с таким именем уже существует</string>
 </resources>

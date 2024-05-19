@@ -2,12 +2,15 @@ package com.example.notebook_project
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -36,8 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var notebookViewModel: NotebookViewModel
     // ON CREATEEEEE AYOOO
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         notebookViewModel = ViewModelProvider(this,
             NotebookViewModelFactory(
                 NotebookRepository.getInstance(this),
@@ -46,15 +49,8 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         )[NotebookViewModel::class.java]
-        notebookViewModel.notebookUiModel.observe(this) {
-            when (it.theme){
-                UserTheme.SYSTEM -> {
 
-                }
-                UserTheme.LIGHT -> {}
-                UserTheme.DARK -> {}
-            }
-        }
+
 
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
