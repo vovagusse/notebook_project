@@ -5,10 +5,10 @@ enum class StorageType {
     EXTERNAL
 }
 
-fun convertStringToStorageType(storageTypeStr: String) : StorageType? {
-    return when(storageTypeStr){
-        "INTERNAL" -> StorageType.INTERNAL
-        "EXTERNAL" -> StorageType.EXTERNAL
-        else -> null
-    }
-}
+//fun convertStringToStorageType(storageTypeStr: String) : StorageType? {
+//    return when(storageTypeStr){
+//        "INTERNAL" -> StorageType.INTERNAL
+//        "EXTERNAL" -> StorageType.EXTERNAL
+//        else -> null
+//    }
+//}

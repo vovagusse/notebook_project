@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -18,7 +19,14 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.notebook_project.databinding.ActivityMainBinding
+import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.UserTheme
+import com.example.notebook_project.db.repository.dataStore
+import com.example.notebook_project.db.viewmodel.NotebookViewModel
+import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
 import com.google.android.material.navigation.NavigationView
+
 
 class MainActivity : AppCompatActivity() {
     //fields
@@ -26,9 +34,27 @@ class MainActivity : AppCompatActivity() {
     private lateinit var vb: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
+    private lateinit var notebookViewModel: NotebookViewModel
     // ON CREATEEEEE AYOOO
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        notebookViewModel = ViewModelProvider(this,
+            NotebookViewModelFactory(
+                NotebookRepository.getInstance(this),
+                UserPreferencesRepository(
+                    this.dataStore,
+                )
+            )
+        )[NotebookViewModel::class.java]
+        notebookViewModel.notebookUiModel.observe(this) {
+            when (it.theme){
+                UserTheme.SYSTEM -> {
+
+                }
+                UserTheme.LIGHT -> {}
+                UserTheme.DARK -> {}
+            }
+        }
 
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)

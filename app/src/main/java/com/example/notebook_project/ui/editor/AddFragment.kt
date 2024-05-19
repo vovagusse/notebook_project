@@ -51,7 +51,6 @@ class AddFragment : Fragment() {
                 NotebookRepository.getInstance(requireActivity()),
                 UserPreferencesRepository(
                     requireActivity().dataStore,
-                    requireActivity()
                 )
             )
         )[NotebookViewModel::class.java]

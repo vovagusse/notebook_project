@@ -10,7 +10,9 @@ import com.example.notebook_project.db.repository.NotebookRepository
 import com.example.notebook_project.db.repository.SortOrder
 import com.example.notebook_project.db.repository.SortingParameter
 import com.example.notebook_project.db.repository.StorageType
+import com.example.notebook_project.db.repository.UserPreferences
 import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.UserTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -24,30 +26,28 @@ class NotebookViewModel(
     private val userPrefsRepository: UserPreferencesRepository
 ) : ViewModel() {
 
-    private val _sortOrderFlow = MutableStateFlow(SortOrder.ASCENDING)
-    private val _sortParamFlow = MutableStateFlow(SortingParameter.BY_NAME)
-    private val _storageTypeFlow = MutableStateFlow(StorageType.INTERNAL)
+    private val _userPreferencesFlow = userPrefsRepository.userPreferencesFlow
+    private val _themeFlow = MutableStateFlow(UserTheme.SYSTEM)
 
     private val notebookUiModelFlow = combine(
         repository.getNotebooks(),
-        _sortOrderFlow,
-        _sortParamFlow,
-        _storageTypeFlow
-    ){  notebooks: List<Notebook>,
-        sortOrder: SortOrder,
-        sortParam: SortingParameter,
-        storageType: StorageType ->
+        _userPreferencesFlow
+    )
+    {  notebooks: List<Notebook>,
+        prefs: UserPreferences
+         ->
         return@combine NotebookUIModel(
             sortNotebooks(
                 notebooks,
-                sortOrder,
-                sortParam),
-            sortOrder,
-            sortParam,
-            storageType
+                prefs.sortOrder,
+                prefs.sortParam),
+            prefs.sortOrder,
+            prefs.sortParam,
+            prefs.storageType,
+            prefs.userTheme
         )
     }
-    val notebookUiModel = notebookUiModelFlow.asLiveData()
+    val notebookUiModel = notebookUiModelFlow.asLiveData(viewModelScope.coroutineContext)
 
     private fun sortNotebooks(
         notebooks: List<Notebook>,
@@ -95,11 +95,40 @@ class NotebookViewModel(
             repository.deleteNotebookByName(name)
         }
     }
+    fun getNotebookByName(name: String) : Notebook? =
+        this.notebookUiModel.value?.notebooks?.find { it.notebook_name == name }
+
 
     fun upsertNotebook(notebook: Notebook){
         Log.i("print", "upsertNotebook: $notebook")
         viewModelScope.launch (Dispatchers.IO){
             repository.upsertNotebook(notebook)
+        }
+    }
+
+    fun changeSortOrder(sortOrder: SortOrder){
+        viewModelScope.launch {
+            userPrefsRepository.updateSortOrder(sortOrder)
+        }
+    }
+    fun changeSortParam(sortParam: SortingParameter){
+        viewModelScope.launch {
+            userPrefsRepository.updateSortParam(sortParam)
+        }
+    }
+    fun changeStorageType(storageType: StorageType){
+        viewModelScope.launch {
+            userPrefsRepository.updateStorageType(storageType)
+        }
+    }
+    fun changeFolder(folder: String){
+        viewModelScope.launch {
+            userPrefsRepository.updateFolder(folder)
+        }
+    }
+    fun changeTheme(theme: UserTheme){
+        viewModelScope.launch {
+            userPrefsRepository.updateUserTheme(theme)
         }
     }
 
