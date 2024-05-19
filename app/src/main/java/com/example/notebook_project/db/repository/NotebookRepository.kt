@@ -1,63 +1,64 @@
 package com.example.notebook_project.db.repository
 
 import android.app.Application
-import androidx.lifecycle.LiveData
+import android.content.Context
 import com.example.notebook_project.db.NotebookDatabase
 import com.example.notebook_project.db.dao.NotebookDao
 import com.example.notebook_project.db.entities.Notebook
+import kotlinx.coroutines.flow.Flow
 
-class NotebookRepository(application: Application) {
+class NotebookRepository private constructor(context: Context) {
 
-    private val _notebooks: LiveData<List<Notebook>>
+    private val _notebooks: Flow<List<Notebook>>
     private val notebookDao: NotebookDao
 
-    init{
-        val db = NotebookDatabase.getDatabase(application)
+    init {
+        val db = NotebookDatabase.getDatabase(context)
         notebookDao = db.getNotebookDao()
-        _notebooks = notebookDao.getAllNotebooksOrderedByNameASC()
+        _notebooks = notebookDao.getAllNotebooks()
     }
 
-    fun get_notebooks(): LiveData<List<Notebook>>{
-        return _notebooks
-    }
+    fun getNotebooks() = _notebooks
 
     //update/insert
-    suspend fun upsertNotebook(notebook: Notebook){
+    suspend fun upsertNotebook(notebook: Notebook) {
         notebookDao.upsertNewNotebook(notebook)
     }
-    //getall queries
-     suspend fun getAllNotebooksOrderedByNameASC(): LiveData<List<Notebook>>{
-        return notebookDao.getAllNotebooksOrderedByNameASC()
-    }
-     suspend fun getAllNotebooksOrderedByNameDESC(): LiveData<List<Notebook>>{
-        return notebookDao.getAllNotebooksOrderedByNameDESC()
-    }
-     suspend fun getAllNotebooksOrderedByTimeCreationASC(): LiveData<List<Notebook>>{
-        return notebookDao.getAllNotebooksOrderedByTimeCreationASC()
-    }
-     suspend fun getAllNotebooksOrderedByTimeCreationDESC(): LiveData<List<Notebook>>{
-        return notebookDao.getAllNotebooksOrderedByTimeCreationDESC()
-    }
-     suspend fun getAllNotebooksOrderedByTimeEditedASC(): LiveData<List<Notebook>>{
-        return notebookDao.getAllNotebooksOrderedByTimeEditedASC()
-    }
-     suspend fun getAllNotebooksOrderedByTimeEditedDESC(): LiveData<List<Notebook>>{
-        return notebookDao.getAllNotebooksOrderedByTimeEditedDESC()
-    }
 
+    //getall queries
+    suspend fun getAllNotebooks(): Flow<List<Notebook>> {
+        return notebookDao.getAllNotebooks()
+    }
 
     //find query
-     suspend fun getNotebookByName(name: String) : Notebook {
+    suspend fun getNotebookByName(name: String): Notebook {
         return notebookDao
             .getNotebookByName(name)
     }
 
     //delete query
-     suspend fun deleteNotebook(notebook: Notebook){
+    suspend fun deleteNotebook(notebook: Notebook) {
         notebookDao.deleteNotebook(notebook)
     }
 
-     suspend fun deleteNotebookByName(name: String){
+    suspend fun deleteNotebookByName(name: String) {
         notebookDao.deleteByName(name)
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: NotebookRepository? = null
+
+        fun getInstance(context: Context): NotebookRepository {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE?.let {
+                    return it
+                }
+
+                val instance = NotebookRepository(context)
+                INSTANCE = instance
+                instance
+            }
+        }
     }
 }

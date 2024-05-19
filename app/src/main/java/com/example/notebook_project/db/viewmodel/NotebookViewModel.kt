@@ -1,52 +1,93 @@
 package com.example.notebook_project.db.viewmodel
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.SortOrder
+import com.example.notebook_project.db.repository.SortingParameter
+import com.example.notebook_project.db.repository.StorageType
+import com.example.notebook_project.db.repository.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Date
 
 
-@OptIn(ExperimentalCoroutinesApi::class)
-class NotebookViewModel(application: Application) : AndroidViewModel(application) {
+class NotebookViewModel(
+    val repository: NotebookRepository,
+    private val userPrefsRepository: UserPreferencesRepository
+) : ViewModel() {
 
-    var _notebooks : LiveData<List<Notebook>>
+    private val _sortOrderFlow = MutableStateFlow(SortOrder.ASCENDING)
+    private val _sortParamFlow = MutableStateFlow(SortingParameter.BY_NAME)
+    private val _storageTypeFlow = MutableStateFlow(StorageType.INTERNAL)
 
-    private var _storageType = MutableLiveData(StorageType.INTERNAL)
-//    val storageType : LiveData<StorageType> = _storageType
-    private var _sortType = MutableLiveData(SortType.ASCENDING)
-//    val sortType : LiveData<SortType> = _sortType
-    private var _sortParam = MutableLiveData(SortingParameter.BY_NAME)
-//    val sortParam : LiveData<SortingParameter> = _sortParam
-    private val repository: NotebookRepository
-
-    init {
-        Log.i("print", "viewmodel init")
-        repository = NotebookRepository(application)
-        _notebooks = repository.get_notebooks()
+    private val notebookUiModelFlow = combine(
+        repository.getNotebooks(),
+        _sortOrderFlow,
+        _sortParamFlow,
+        _storageTypeFlow
+    ){  notebooks: List<Notebook>,
+        sortOrder: SortOrder,
+        sortParam: SortingParameter,
+        storageType: StorageType ->
+        return@combine NotebookUIModel(
+            sortNotebooks(
+                notebooks,
+                sortOrder,
+                sortParam),
+            sortOrder,
+            sortParam,
+            storageType
+        )
     }
+    val notebookUiModel = notebookUiModelFlow.asLiveData()
 
-    override fun onCleared() {
-        this.print()
-        super.onCleared()
-        Log.i("print", "cleared viewmodel")
+    private fun sortNotebooks(
+        notebooks: List<Notebook>,
+        sortOrder: SortOrder,
+        sortParam: SortingParameter
+    ): List<Notebook> {
+        when (sortOrder) {
+            SortOrder.ASCENDING -> {
+                return when (sortParam) {
+                    SortingParameter.BY_NAME -> {
+                        notebooks.sortedBy {it.notebook_name}
+                    }
+                    SortingParameter.BY_DATE_OF_CREATION -> {
+                        notebooks.sortedBy { it.dateTimeOfCreation }
+                    }
+                    SortingParameter.BY_DATE_LAST_EDITED -> {
+                        notebooks.sortedBy { it.dateTimeLastEdited }
+                    }
+                }
+            }
+            SortOrder.DESCENDING -> {
+                return when (sortParam) {
+                    SortingParameter.BY_NAME -> {
+                        notebooks.sortedBy {it.notebook_name}
+                    }
+                    SortingParameter.BY_DATE_OF_CREATION -> {
+                        notebooks.sortedBy { it.dateTimeOfCreation }
+                    }
+                    SortingParameter.BY_DATE_LAST_EDITED -> {
+                        notebooks.sortedBy { it.dateTimeLastEdited }
+                    }
+                }
+            }
+        }
     }
 
     fun deleteNotebook(notebook: Notebook){
         viewModelScope.launch (Dispatchers.IO){
             repository.deleteNotebook(notebook)
         }
-
     }
 
     fun deleteNotebookByName(name: String){
@@ -62,105 +103,6 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-//    fun getNotebookByName(name: String) : Notebook {
-//        viewModelScope.launch {
-//            return this@NotebookViewModel
-//                .repository
-//                .getNotebookByName(name)
-//        }
-//
-//    }
-
-    fun getAllNotebooks(){
-        Log.i("print", "getAllNotebooks: called")
-        when (_sortType.value) {
-            SortType.ASCENDING -> {
-                getAllNotebooksByParamAsc()
-            }
-            SortType.DESCENDING -> {
-                getAllNotebooksByParamDesc()
-            }
-            null -> {}
-        }
-    }
-
-    private fun getAllNotebooksByParamAsc(){
-        when (_sortParam.value){
-            SortingParameter.BY_NAME -> {
-                viewModelScope.launch (Dispatchers.Main) {
-                    delay(500)
-
-                    _notebooks =
-                        repository.getAllNotebooksOrderedByNameASC()
-                }
-            }
-            SortingParameter.BY_DATE_OF_CREATION -> {
-                viewModelScope.launch (Dispatchers.Main){
-                    delay(500)
-
-                    _notebooks =
-                        repository.getAllNotebooksOrderedByTimeCreationASC()
-                }
-            }
-            SortingParameter.BY_DATE_LAST_EDITED -> {
-                viewModelScope.launch (Dispatchers.Main) {
-                    delay(500)
-
-                    _notebooks =
-                        repository.getAllNotebooksOrderedByTimeEditedASC()
-
-                }
-            }
-            null -> {}
-        }
-    }
-
-    private fun getAllNotebooksByParamDesc() {
-        when (_sortParam.value){
-            SortingParameter.BY_NAME -> {
-                viewModelScope.launch (Dispatchers.Main) {
-                    delay(500)
-
-                    _notebooks=
-                        repository.getAllNotebooksOrderedByNameDESC()
-                }
-            }
-            SortingParameter.BY_DATE_OF_CREATION -> {
-                viewModelScope.launch (Dispatchers.Main){
-                    delay(500)
-
-                    _notebooks=
-                        repository.getAllNotebooksOrderedByTimeCreationDESC()
-                }
-            }
-            SortingParameter.BY_DATE_LAST_EDITED -> {
-                viewModelScope.launch (Dispatchers.Main) {
-                    delay(500)
-
-                    _notebooks=
-                        repository.getAllNotebooksOrderedByTimeEditedDESC()
-
-                }
-            }
-            null -> {}
-        }
-    }
-
-    fun changeSortType(newSortType: SortType) {
-        _sortType.value = newSortType
-        getAllNotebooks()
-    }
-
-    fun changeStorageType(newStorageType: StorageType){
-        _storageType.value = newStorageType
-        getAllNotebooks()
-    }
-
-    fun changeSortParam(sortParam: SortingParameter){
-        _sortParam.value = sortParam
-        getAllNotebooks()
-    }
-
     //==================================================================================
 
     //IO
@@ -169,7 +111,7 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
         return Date(File(filename).lastModified())
     }
 
-    fun saveNotebook(filename: String, body: String) = when (_storageType.value){
+    fun saveNotebook(filename: String, body: String) = when (notebookUiModel.value?.storageType){
         StorageType.INTERNAL -> {
             //sdhsadh
             true
@@ -184,7 +126,7 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun openNotebook(filename: String) = when (_storageType.value){
+    fun openNotebook(filename: String) = when (notebookUiModel.value?.storageType){
         StorageType.INTERNAL -> {""}
         StorageType.EXTERNAL -> {""}
         null -> {
@@ -193,7 +135,7 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun deleteNotebook(filename: String) = when (_storageType.value){
+    fun deleteNotebook(filename: String) = when (notebookUiModel.value?.storageType){
         StorageType.INTERNAL -> {true}
         StorageType.EXTERNAL -> {true}
         null -> {
@@ -204,9 +146,10 @@ class NotebookViewModel(application: Application) : AndroidViewModel(application
 
     fun print() {
         Log.i("print", "BEGIN PRINT")
-        _notebooks.value?.forEach {
+        notebookUiModel.value?.notebooks?.forEach {
             Log.i("print", it.toString())
         }
         Log.i("print", "END PRINT")
     }
 }
+

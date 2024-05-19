@@ -10,29 +10,30 @@
     >
 
     <TextView
-        android:background="@android:color/transparent"
         android:id="@+id/tv_item_notebook_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
+        android:background="@android:color/transparent"
         android:text="Name of notebook"
-        android:textSize="24sp"
+        android:textSize="@dimen/bigger_text"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/ib_item_context_menu_options"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:background="@android:color/transparent"
         android:id="@+id/tv_item_date_created"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
         android:text="Created on:"
         android:textAlignment="viewEnd"
-        android:textSize="10sp"
+        android:textSize="@dimen/smaller_text"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/tv_item_date_edited"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_notebook_body"
@@ -41,15 +42,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_notebook_body" />
 
     <TextView
-        android:background="@android:color/transparent"
         android:id="@+id/tv_item_date_edited"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
         android:text="Last edited:"
         android:textAlignment="viewEnd"
-        android:textSize="10sp"
+        android:textSize="@dimen/smaller_text"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_date_created"
@@ -59,15 +61,16 @@
 
 
     <TextView
-        android:background="@android:color/transparent"
         android:id="@+id/tv_item_notebook_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
         android:text="Description: "
-        android:textSize="16sp"
+        android:textSize="@dimen/regular_text"
         app:layout_constraintBottom_toTopOf="@+id/tv_item_date_created"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -92,15 +95,15 @@
 
     <ImageButton
         android:id="@+id/ib_item_context_menu_options"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:theme="@style/Theme.Notebook_project.ImageButtonAdaptiveStyleTransparent"
+        android:theme="@style/Theme.Notebook_project.RecyclerViewOptionsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tv_item_notebook_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_notebook_name"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_moreoptions_vertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

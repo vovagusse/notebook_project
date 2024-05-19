@@ -1,33 +1,17 @@
 package com.example.notebook_project.ui.editor
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.notebook_project.databinding.FragmentSettingsBinding
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.preference.PreferenceFragmentCompat
+import com.example.notebook_project.R
+import com.example.notebook_project.db.viewmodel.NotebookViewModel
 
 
-class SettingsFragment : Fragment() {
-    private var _binding: FragmentSettingsBinding? = null
-    private val vb
-        get() = _binding!!
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // TODO: Use the ViewModel
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        val root: View = vb.root
-        val papaContext = container?.context
-        return vb.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+class SettingsFragment : PreferenceFragmentCompat(){
+    private lateinit var viewModel: NotebookViewModel
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
     }
 }
+

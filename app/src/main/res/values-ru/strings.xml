@@ -31,4 +31,20 @@
     <string name="edit">Редактировать</string>
     <string name="delete">Удалить</string>
     <string name="confiem_delete_title">Удалить блокнот?</string>
+    <string name="setting_internal_storage">Внутреннее хранилище</string>
+    <string name="setting_external_storage">Внешнее хранилище</string>
+    <string name="setting_ascending_order">От меньшего к большему</string>
+    <string name="setting_descending_order">От большего к меньшему</string>
+    <string name="setting_order_by_name">Расположить по имени</string>
+    <string name="setting_order_by_date_of_creation">Расположить по дате создания</string>
+    <string name="setting_order_by_date_of_last_edited">Расположить по дате редактирования</string>
+    <string name="settings_group_look_and_feel">Внешний вид</string>
+    <string name="settings_group_files">Файлы</string>
+    <string name="settings_item_file_storage">Хранение файлов</string>
+    <string name="settings_item_app_theme">Тема приложения</string>
+    <string name="settings_item_sort_order_ascending_descending">Порядок сортировки</string>
+    <string name="settings_item_sort_order_parameter">Сортировка по параметру</string>
+    <string name="theme_system">Как в системе</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
 </resources>

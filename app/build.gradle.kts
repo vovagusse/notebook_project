@@ -58,6 +58,7 @@ dependencies {
 
     //lifecycle components
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
 
@@ -67,6 +68,8 @@ dependencies {
     //navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.preference:preference:1.2.1")
 
     //tests
     testImplementation("junit:junit:4.13.2")
@@ -94,6 +97,11 @@ dependencies {
     annotationProcessor("io.noties.markwon:ext-tasklist:$markwon_version")
     annotationProcessor("io.noties.markwon:recycler:$markwon_version")
     annotationProcessor("io.noties.markwon:syntax-highlight:$markwon_version")
+
+
+    //preferences
+    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     //SIKE!!! this one uses jetpack compose!!
 //    val version = "0.16.0"

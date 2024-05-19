@@ -1,5 +1,6 @@
 package com.example.notebook_project.ui.editor
 
+import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,14 +12,20 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentEditBinding
 import com.example.notebook_project.db.entities.Notebook
+import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
+import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
 import java.util.Date
+
 
 
 class EditFragment : Fragment() {
@@ -42,7 +49,15 @@ class EditFragment : Fragment() {
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         val root: View = vb.root
 
-        notebookViewModel = ViewModelProvider(this)[NotebookViewModel::class.java]
+        notebookViewModel = ViewModelProvider(requireActivity(),
+            NotebookViewModelFactory(
+                NotebookRepository.getInstance(requireActivity()),
+                UserPreferencesRepository(
+                    requireActivity().dataStore,
+                    requireActivity()
+                )
+            )
+        )[NotebookViewModel::class.java]
 
         val name : String = args.currentNotebook.notebook_name
         vb.etEditTitle.setText(args.currentNotebook.notebook_name)

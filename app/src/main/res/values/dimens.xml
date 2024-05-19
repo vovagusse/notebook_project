@@ -8,6 +8,8 @@
     <dimen name="rectangle_radius">20dp</dimen>
     <dimen name="_50dp">50dp</dimen>
     <dimen name="big_text">20sp</dimen>
+    <dimen name="bigger_text">24sp</dimen>
     <dimen name="regular_text">16sp</dimen>
     <dimen name="small_text">12sp</dimen>
+    <dimen name="smaller_text">9sp</dimen>
 </resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/settings_group_look_and_feel">
+        <ListPreference
+            android:defaultValue="SYSTEM"
+            android:entries="@array/setting_theme"
+            android:entryValues="@array/setting_theme_values"
+            android:icon="@drawable/ic_phone_sparking"
+            android:key="@string/setting_key_app_theme"
+            android:title="@string/settings_item_app_theme" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_group_files">
+        <ListPreference
+            android:defaultValue="INTERNAL_STORAGE"
+            android:entries="@array/setting_storage_type"
+            android:entryValues="@array/setting_storage_type_values"
+            android:icon="@drawable/ic_open_file"
+            android:key="@string/setting_key_storage_type"
+            android:title="@string/settings_item_file_storage" />
+        <EditTextPreference
+            android:defaultValue=""
+            android:dependency="@string/setting_key_storage_type"
+            android:icon="@drawable/ic_folder_user"
+            android:key="@string/setting_key_folder"
+            android:title="@string/settings_item_folder" />
+        <ListPreference
+            android:defaultValue="ASCENDING"
+            android:entries="@array/setting_sort_type"
+            android:entryValues="@array/setting_sort_type_values"
+            android:icon="@drawable/ic_sort_alpha"
+            android:key="@string/setting_key_sort_type"
+            android:title="@string/settings_item_sort_order_ascending_descending" />
+        <ListPreference
+            android:defaultValue="BY_NAME"
+            android:entries="@array/setting_sort_order_by"
+            android:entryValues="@array/setting_sort_order_by_values"
+            android:icon="@drawable/ic_sort"
+            android:key="@string/setting_key_sorting_parameter"
+            android:title="@string/settings_item_sort_order_parameter" />
+    </PreferenceCategory>
+</PreferenceScreen>

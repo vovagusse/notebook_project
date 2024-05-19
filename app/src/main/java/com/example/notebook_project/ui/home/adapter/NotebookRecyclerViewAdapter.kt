@@ -8,6 +8,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notebook_project.R
 import com.example.notebook_project.db.entities.Notebook
@@ -15,7 +17,10 @@ import com.example.notebook_project.ui.home.HomeFragmentDirections
 
 class NotebookRecyclerViewAdapter (
     var context: Context,
-) : RecyclerView.Adapter<NotebookRecyclerViewAdapter.NotebookViewHolder>() {
+)
+//    : RecyclerView.Adapter<NotebookRecyclerViewAdapter.NotebookViewHolder>()
+    : ListAdapter<Notebook, NotebookRecyclerViewAdapter.NotebookViewHolder>(TASKS_COMPARATOR)
+{
 
     interface OptionsMenuClickListener {
         fun onOptionsMenuClicked(pos: Int)
@@ -84,5 +89,13 @@ class NotebookRecyclerViewAdapter (
         notifyDataSetChanged()
     }
 
+    companion object {
+        private val TASKS_COMPARATOR = object : DiffUtil.ItemCallback<Notebook>() {
+            override fun areItemsTheSame(oldItem: Notebook, newItem: Notebook): Boolean =
+                oldItem.notebook_name == newItem.notebook_name
 
+            override fun areContentsTheSame(oldItem: Notebook, newItem: Notebook): Boolean =
+                oldItem == newItem
+        }
+    }
 }

@@ -37,4 +37,40 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="confiem_delete_title">Do you want to delete the notebook?</string>
+    <string name="setting_internal_storage">Internal storage</string>
+    <string name="setting_external_storage">External storage</string>
+    <string name="setting_ascending_order">Ascending</string>
+    <string name="setting_descending_order">Descending</string>
+    <string name="setting_order_by_name">Order by name</string>
+    <string name="setting_order_by_date_of_creation">Order by date of creation</string>
+    <string name="setting_order_by_date_of_last_edited">Order by last edited</string>
+    <string name="settings_group_look_and_feel">Look and feel</string>
+    <string name="settings_group_files">Files</string>
+    <string name="settings_item_file_storage">File storage</string>
+    <string name="settings_item_app_theme">App theme</string>
+    <string name="settings_item_sort_order_ascending_descending">Sort order</string>
+    <string name="settings_item_sort_order_parameter">Sort by parameter</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="setting_key_app_theme">app_theme</string>
+    <string name="setting_key_storage_type">storage_type</string>
+    <string name="setting_key_sort_type">sort_type</string>
+    <string name="setting_key_sorting_parameter">sorting_parameter</string>
+    <string name="setting_key_folder">folder</string>
+    <string name="settings_item_folder">Select folder</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

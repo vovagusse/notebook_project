@@ -72,6 +72,15 @@
 <!--        </item>-->
     </style>
 
+    <style name="Theme.Notebook_project.RecyclerViewOptionsButton" parent="Widget.AppCompat.ImageButton">
+        <item name="tint">
+            @color/blurple_white
+        </item>
+        <item name="android:backgroundTint">
+            @color/blurple_grey
+        </item>
+    </style>
+
 
     <style name="Theme.Notebook_project.ImageButtonAdaptiveStyle" parent="Widget.AppCompat.ImageButton">
         <item name="tint">

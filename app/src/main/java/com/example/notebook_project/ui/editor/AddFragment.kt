@@ -1,5 +1,6 @@
 package com.example.notebook_project.ui.editor
 
+import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
@@ -8,18 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentAddBinding
 import com.example.notebook_project.db.entities.Notebook
+import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
+import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
 
 import io.noties.markwon.Markwon
 import io.noties.markwon.editor.MarkwonEditor
 import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import java.util.concurrent.Executors
+
 
 
 class AddFragment : Fragment() {
@@ -39,7 +46,15 @@ class AddFragment : Fragment() {
         val root: View = vb.root
         val papaContext = container?.context
 
-        notebookViewModel = ViewModelProvider(this)[NotebookViewModel::class.java]
+        notebookViewModel = ViewModelProvider(requireActivity(),
+            NotebookViewModelFactory(
+                NotebookRepository.getInstance(requireActivity()),
+                UserPreferencesRepository(
+                    requireActivity().dataStore,
+                    requireActivity()
+                )
+            )
+        )[NotebookViewModel::class.java]
 
         val fab_save = vb.fabAddSave
         fab_save.setOnClickListener{
@@ -104,7 +119,7 @@ class AddFragment : Fragment() {
         findNavController().navigate(action)
 
         return true
-}
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

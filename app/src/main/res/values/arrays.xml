@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="setting_storage_type">
+        <item>@string/setting_internal_storage</item>
+        <item>@string/setting_external_storage</item>
+    </array>
+    <array name="setting_storage_type_values">
+        <item>INTERNAL_STORAGE</item>
+        <item>EXTERNAL_STORAGE</item>
+    </array>
+    <array name="setting_sort_type">
+        <item>@string/setting_ascending_order</item>
+        <item>@string/setting_descending_order</item>
+    </array>
+    <array name="setting_sort_type_values">
+        <item>ASCENDING</item>
+        <item>DESCENDING</item>
+    </array>
+    <array name="setting_sort_order_by">
+        <item>@string/setting_order_by_name</item>
+        <item>@string/setting_order_by_date_of_creation</item>
+        <item>@string/setting_order_by_date_of_last_edited</item>
+    </array>
+    <array name="setting_sort_order_by_values">
+        <item>BY_NAME</item>
+        <item>BY_DATE_OF_CREATION</item>
+        <item>BY_DATE_LAST_EDITED</item>
+    </array>
+    <array name="setting_theme">
+        <item>@string/theme_system</item>
+        <item>@string/theme_light</item>
+        <item>@string/theme_dark</item>
+    </array>
+    <array name="setting_theme_values">
+        <item>SYSTEM</item>
+        <item>LIGHT</item>
+        <item>DARK</item>
+    </array>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+</resources>
