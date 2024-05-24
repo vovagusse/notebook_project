@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,8 @@ class AddFragment : Fragment() {
     private lateinit var notebookViewModel : NotebookViewModel
     private var id : Long? = null
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +63,8 @@ class AddFragment : Fragment() {
         vb.fabAddSave.setOnClickListener{
             insertNewNotebook()
         }
+
+
 
         et_title = vb.etAddTitle
         et_body = vb.etAddBody
@@ -120,6 +125,7 @@ class AddFragment : Fragment() {
 
         return true
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

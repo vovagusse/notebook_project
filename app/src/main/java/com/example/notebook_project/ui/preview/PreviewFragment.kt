@@ -10,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -51,6 +52,25 @@ class PreviewFragment : Fragment() {
                 )
             )
         )[NotebookViewModel::class.java]
+
+
+//        val myCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                if (isEnabled) {
+//                    val backStackCount = requireActivity()
+//                        .supportFragmentManager
+//                        .backStackEntryCount
+//
+//                    if (backStackCount >= 3) {
+//                        findNavController().popBackStack()
+//                    }
+//                    isEnabled = false
+//                    requireActivity().onBackPressed()
+//                }
+//            }
+//        }
+//
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, myCallback)
 
         vb.tvPreviewNotebookName.text = args.currentNotebook.notebook_name
         val date_created_txt = "${resources.getString(R.string.created_on)}: ${args.currentNotebook.dateTimeLastEdited}"

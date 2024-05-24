@@ -7,6 +7,9 @@
     android:clickable="true"
     android:id="@+id/item_notebook_constraintLayout"
     android:theme="@style/Theme.Notebook_project.RecyclerViewItem"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+
     >
 
     <TextView

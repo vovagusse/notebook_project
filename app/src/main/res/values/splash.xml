@@ -3,6 +3,7 @@
     <style name="Theme.Notebook_project.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/blurple_white</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_my_app_icon</item>
+<!--        <item name="android:foreground">@drawable/ic_folder_user</item>-->
         <item name="postSplashScreenTheme">@style/Theme.Notebook_project</item>
     </style>
 </resources>
