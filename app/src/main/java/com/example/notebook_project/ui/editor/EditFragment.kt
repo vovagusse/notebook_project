@@ -1,6 +1,5 @@
 package com.example.notebook_project.ui.editor
 
-import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,6 +22,7 @@ import com.example.notebook_project.db.repository.UserPreferencesRepository
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
+import com.example.notebook_project.util.makeFileName
 import java.util.Date
 
 
@@ -34,7 +33,7 @@ class EditFragment : Fragment() {
     private var _binding: FragmentEditBinding? = null
     private val vb get() = _binding!!
     private val args by navArgs<EditFragmentArgs>()
-    private lateinit var notebookViewModel: NotebookViewModel
+    private lateinit var NOTEBOOK_VIEW_MODEL: NotebookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,32 +48,28 @@ class EditFragment : Fragment() {
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         val root: View = vb.root
 
-        notebookViewModel = ViewModelProvider(requireActivity(),
+        NOTEBOOK_VIEW_MODEL = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
                 NotebookRepository.getInstance(requireActivity()),
                 UserPreferencesRepository(
                     requireActivity().dataStore,
-                )
+                ),
+                requireActivity().application
             )
         )[NotebookViewModel::class.java]
 
-        val name : String = args.currentNotebook.notebook_name
         vb.etEditTitle.setText(args.currentNotebook.notebook_name)
-        vb.etEditBody.setText( notebookViewModel.openNotebook(name) )
 
+        val name : String = args.currentNotebook.notebook_name
+        vb.etEditBody.setText( NOTEBOOK_VIEW_MODEL.readNotebookByName(name) )
         vb.fabEditorSave.setOnClickListener{
-            val filename = args.currentNotebook.uri
-            val body = vb.etEditBody.text.toString()
-            notebookViewModel.saveNotebook(filename, body)
-            updateNotebook(filename)
+            updateNotebook()
         }
         vb.fabEditorSave.setOnLongClickListener{
-            val filename = args.currentNotebook.uri
-            val body = vb.etEditBody.text.toString()
-            notebookViewModel.saveNotebook(filename, body)
-            val notebook_updated = updateNotebook(filename)
+            val notebook_updated = updateNotebook()
             notebook_updated?.let {
-                val action = EditFragmentDirections.actionEditFragmentToNavPreview(it)
+                val action = EditFragmentDirections
+                    .actionEditFragmentToNavPreview(it)
                 findNavController().navigate(action)
             }
             true
@@ -83,10 +78,11 @@ class EditFragment : Fragment() {
         return root
     }
 
-    private fun updateNotebook(uri: String) : Notebook?{
+    private fun updateNotebook() : Notebook?{
+        var uri = args.currentNotebook.uri
         val currentDateTime : Date = Calendar.getInstance().time
         val id = args.currentNotebook.id
-//        val uri = args.currentNotebook.uri
+        val old_name = args.currentNotebook.notebook_name
         val name = vb.etEditTitle.text.toString()
         val body = vb.etEditBody.text.toString()
 
@@ -96,16 +92,22 @@ class EditFragment : Fragment() {
             Toast.makeText(this.context, "$errMessage", Toast.LENGTH_LONG).show()
             return null
         }
+
+        if (old_name != name) {
+            val new_uri = makeFileName(name)
+            NOTEBOOK_VIEW_MODEL.renameNotebook(uri, new_uri)
+            uri = new_uri
+        }
+
         val date_created = args.currentNotebook.dateTimeOfCreation
         val date_edited = currentDateTime
 
         val notebook_updated = Notebook(
             id, uri, name, date_created, date_edited
         )
-        notebookViewModel.upsertNotebook(notebook_updated)
-        notebookViewModel.saveNotebook(uri, body)
+        NOTEBOOK_VIEW_MODEL.upsertNotebook(notebook_updated, body)
         val success_edit = this.context?.resources?.getString(R.string.success_edit_notebook)
-        Toast.makeText(requireContext(), success_edit, Toast.LENGTH_LONG).show()
+        Toast.makeText(requireActivity(), success_edit, Toast.LENGTH_LONG).show()
 
         return notebook_updated
     }
@@ -117,7 +119,7 @@ class EditFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.appbar_menu_delete_button -> {
-            notebookViewModel.deleteNotebookByName(args.currentNotebook.notebook_name)
+            NOTEBOOK_VIEW_MODEL.deleteNotebook(args.currentNotebook.notebook_name)
             val action = EditFragmentDirections.actionEditFragmentToNavHome()
             findNavController().navigate(action)
             true

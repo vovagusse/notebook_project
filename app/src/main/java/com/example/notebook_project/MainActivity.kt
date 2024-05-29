@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
                 NotebookRepository.getInstance(this),
                 UserPreferencesRepository(
                     this.dataStore,
-                )
+                ),
+                this.application
             )
         )[NotebookViewModel::class.java]
 

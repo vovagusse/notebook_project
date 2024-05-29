@@ -1,6 +1,5 @@
 package com.example.notebook_project.ui.preview
 
-import android.content.Context
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
@@ -10,8 +9,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,7 +19,7 @@ import com.example.notebook_project.db.repository.UserPreferencesRepository
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
-
+import io.noties.markwon.Markwon
 
 
 class PreviewFragment : Fragment() {
@@ -49,35 +46,21 @@ class PreviewFragment : Fragment() {
                 NotebookRepository.getInstance(requireActivity()),
                 UserPreferencesRepository(
                     requireActivity().dataStore,
-                )
+                ),
+                requireActivity().application
             )
         )[NotebookViewModel::class.java]
 
-
-//        val myCallback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                if (isEnabled) {
-//                    val backStackCount = requireActivity()
-//                        .supportFragmentManager
-//                        .backStackEntryCount
-//
-//                    if (backStackCount >= 3) {
-//                        findNavController().popBackStack()
-//                    }
-//                    isEnabled = false
-//                    requireActivity().onBackPressed()
-//                }
-//            }
-//        }
-//
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, myCallback)
 
         vb.tvPreviewNotebookName.text = args.currentNotebook.notebook_name
         val date_created_txt = "${resources.getString(R.string.created_on)}: ${args.currentNotebook.dateTimeLastEdited}"
         val date_edited_txt = "${resources.getString(R.string.latest_changes)}: ${args.currentNotebook.dateTimeLastEdited}"
         vb.tvPreviewDateCreated.text = date_created_txt
         vb.tvPreviewDateEdited.text = date_edited_txt
-        vb.tvPreviewNotebookBody.text = notebookViewModel.openNotebook(args.currentNotebook.uri)
+        val body = notebookViewModel.readNotebookByUri(args.currentNotebook.uri)
+        val markwon = this.context?.let { Markwon.create(it) }
+        markwon?.setMarkdown(vb.tvPreviewNotebookBody, body)
+
         vb.tvPreviewNotebookBody.movementMethod = ScrollingMovementMethod()
 
         vb.fabEdit.setOnClickListener{
@@ -95,7 +78,7 @@ class PreviewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.appbar_menu_delete_button -> {
-            notebookViewModel.deleteNotebookByName(args.currentNotebook.notebook_name)
+            notebookViewModel.deleteNotebook(args.currentNotebook.notebook_name)
             val action = PreviewFragmentDirections.actionNavPreviewToNavHome()
             findNavController().navigate(action)
             true

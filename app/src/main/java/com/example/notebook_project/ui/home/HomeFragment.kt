@@ -28,7 +28,7 @@ class HomeFragment : Fragment(), RecyclerViewInterface {
 
     private var _binding: FragmentHomeBinding? = null
     private val vb get() = _binding!!
-    private lateinit var notebookViewModel: NotebookViewModel
+    private lateinit var NOTEBOOK_VIEW_MODEL: NotebookViewModel
     private lateinit var rw: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +45,13 @@ class HomeFragment : Fragment(), RecyclerViewInterface {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = vb.root
 
-        notebookViewModel = ViewModelProvider(requireActivity(),
+        NOTEBOOK_VIEW_MODEL = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
                 NotebookRepository.getInstance(requireActivity()),
                 UserPreferencesRepository(
                     requireActivity().dataStore,
-                )
+                ),
+                requireActivity().application
             )
         )[NotebookViewModel::class.java]
 //        homeViewModel.text.observe(viewLifecycleOwner) {
@@ -63,7 +64,7 @@ class HomeFragment : Fragment(), RecyclerViewInterface {
         }
 //        notebookViewModel.getAllNotebooks()
 //        notebookViewModel.print()
-        notebookViewModel.notebookUiModel.observe(viewLifecycleOwner) {
+        NOTEBOOK_VIEW_MODEL.notebookUiModel.observe(viewLifecycleOwner) {
             adapter?.setListContent(it.notebooks)
         }
         rw = vb.rvNotebooks
@@ -84,10 +85,18 @@ class HomeFragment : Fragment(), RecyclerViewInterface {
     }
 
     override fun onContextButtonDelete(position: Int) {
-        val found = notebookViewModel.getNotebookByPosition(position)
+        val found = NOTEBOOK_VIEW_MODEL.getNotebookByPosition(position)
         found?.notebook_name?.let {
-            notebookViewModel.deleteNotebookByName(it)
+            NOTEBOOK_VIEW_MODEL.deleteNotebook(it)
         }
+    }
+
+    override fun readNotebookBody(position: Int) : String{
+        val found = NOTEBOOK_VIEW_MODEL.getNotebookByPosition(position)
+        if (found != null){
+            return NOTEBOOK_VIEW_MODEL.readNotebookByUri(found.uri)
+        }
+        return ""
     }
 
 

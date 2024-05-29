@@ -32,6 +32,7 @@ import java.io.File
 class SettingsFragment : PreferenceFragmentCompat(){
     private lateinit var NOTEBOOK_VIEW_MODEL: NotebookViewModel
     private val keys = Keys()
+    private val IT_BROKEY = "Not implemented!"
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -40,16 +41,20 @@ class SettingsFragment : PreferenceFragmentCompat(){
                 NotebookRepository.getInstance(requireActivity()),
                 UserPreferencesRepository(
                     requireActivity().dataStore,
-                )
+                ),
+                requireActivity().application
             )
         )[NotebookViewModel::class.java]
 
         val theme = findPreference<ListPreference>(keys.app_theme)
         theme?.setOnPreferenceChangeListener { _, newValue ->
+            /*
             Log.d("Preferences", "$newValue")
             convertStringToUserTheme(newValue.toString().uppercase()).apply {
                 this?.let { NOTEBOOK_VIEW_MODEL.changeTheme(it) }
             }
+            */
+            quickToast(IT_BROKEY)
             true }
 
 
@@ -59,6 +64,7 @@ class SettingsFragment : PreferenceFragmentCompat(){
             convertStringToStorageType(newValue.toString().uppercase()).apply {
                 this?.let { NOTEBOOK_VIEW_MODEL.changeStorageType(it) }
             }
+//            quickToast(IT_BROKEY)
             true}
 
         val sortOrder = findPreference<ListPreference>(keys.sort_order)
@@ -67,6 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat(){
             convertStringToSortOrder(newValue.toString().uppercase()).apply {
                 this?.let { NOTEBOOK_VIEW_MODEL.changeSortOrder(it) }
             }
+//            quickToast(IT_BROKEY)
             true}
 
         val sortParam = findPreference<ListPreference>(keys.sorting_parameter)
@@ -75,10 +82,12 @@ class SettingsFragment : PreferenceFragmentCompat(){
             convertStringToSortingParameter(newValue.toString().uppercase()).apply {
                 this?.let { NOTEBOOK_VIEW_MODEL.changeSortParam(it) }
             }
+            quickToast(IT_BROKEY)
             true}
 
         val folder = findPreference<EditTextPreference>(keys.folder)
         folder?.setOnPreferenceClickListener {
+            /*
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply{
                 val uri = Uri.parse(
                     Environment
@@ -100,30 +109,19 @@ class SettingsFragment : PreferenceFragmentCompat(){
                         Toast.LENGTH_LONG).show()
                 }
             }
-
+            */
+            quickToast("Not implemented!")
             true
         }
         folder?.setOnBindEditTextListener {value ->
-            Log.d("Preferences", "${value.text}") }
+            /*
+            Log.d("Preferences", "${value.text}")
+            */
+            quickToast(IT_BROKEY)
+        }
+    }
+
+    fun quickToast(message: String){
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
     }
 }
-
-//class SettingsFragment : Fragment(){
-//    private lateinit var _binding : FragmentSettingsBinding
-//    private var vb = _binding
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        _binding = FragmentSettingsBinding.inflate(inflater)
-//
-//        val a = vb.contentSettings.contentPreferenceScreen
-//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//        val poop = SettingsFragmentSon()
-//        transaction.add(a.id, poop)
-//        transaction.commit()
-//        return vb.root
-//    }
-//}

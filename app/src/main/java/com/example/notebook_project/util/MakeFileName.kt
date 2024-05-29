@@ -1,9 +1,11 @@
 package com.example.notebook_project.util
 
-fun makeFileName(notebookName: String) : String {
+
+/** Makes a beautiful formatted file name. */
+fun makeFileName(notebookName: String, ext: String = "md") : String {
     val spl = notebookName
         .lowercase()
         .removeSurrounding(" ")
-        .replace(" ", "_") + ".md"
+        .replace(" ", "_") + ".$ext"
     return spl
 }

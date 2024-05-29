@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notebook_project.R
 import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.ui.home.HomeFragmentDirections
+import io.noties.markwon.Markwon
 
 class NotebookRecyclerViewAdapter (
     var context: Context,
@@ -41,7 +42,6 @@ class NotebookRecyclerViewAdapter (
             tv_body = iv.findViewById(R.id.tv_item_notebook_body)
             tv_date_edited = iv.findViewById(R.id.tv_item_date_edited)
             tv_date_created = iv.findViewById(R.id.tv_item_date_created)
-
         }
     }
 
@@ -59,14 +59,17 @@ class NotebookRecyclerViewAdapter (
     override fun onBindViewHolder(holder: NotebookViewHolder, pos: Int) {
         val nb = notebooks[pos]
         holder.tv_name.text = nb.notebook_name
-        var body = ""
+        var body = recyclerViewInterface.readNotebookBody(pos)
         val max_length = 200
         if (body.length > 200){
             body = body.substring(0, max_length-3) + "..."
         }
-        holder.tv_body.text = "${body}"
+//        holder.tv_body.text = "${body}"
         holder.tv_date_edited.text = "${gs(R.string.latest_changes)}: ${nb.dateTimeLastEdited}"
         holder.tv_date_created.text = "${gs(R.string.created_on)}: ${nb.dateTimeLastEdited}"
+
+        val markwon = Markwon.create(this.context)
+        markwon.setMarkdown(holder.tv_body, body)
 
         holder.container.setOnClickListener{
             val action = HomeFragmentDirections.actionNavHomeToPreviewFragment(notebooks[pos])

@@ -1,17 +1,13 @@
 package com.example.notebook_project.ui.editor
 
-import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -48,15 +44,16 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
-        val root: View = vb.root
-        val papaContext = container?.context
+//        val root: View = vb.root
+//        val papaContext = container?.context
 
         notebookViewModel = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
                 NotebookRepository.getInstance(requireActivity()),
                 UserPreferencesRepository(
                     requireActivity().dataStore,
-                )
+                ),
+                requireActivity().application
             )
         )[NotebookViewModel::class.java]
 
@@ -114,8 +111,7 @@ class AddFragment : Fragment() {
                 dateTimeOfCreation = currentDateTime,
                 dateTimeLastEdited = currentDateTime
             )
-        notebookViewModel.upsertNotebook(notebookObj)
-        notebookViewModel.saveNotebook(notebookFilename, notebookBody)
+        notebookViewModel.upsertNotebook(notebookObj, notebookBody)
 
         val goodMessage = this.context?.resources?.getString(R.string.success_add_notebook)
         Toast.makeText(this.context, "$goodMessage", Toast.LENGTH_LONG).show()
