@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        app:font="@font/cmu_bright"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/cmu_typewriter"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/cmu_sansserif_family"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/cmu_serif"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/cmu_concrete"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/cmu_sansserif_demicondensed"
+        app:fontWeight="400" />
+</font-family>

@@ -139,4 +139,11 @@
             12dp
         </item>
     </style>
+
+    <style name="Theme.Notebook_project.PreviewTextViewStyle" parent="ThemeOverlay.AppCompat">
+        <item name="textFillColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/blurple_white</item>
+        <item name="android:fontFamily">@font/cmu_serif</item>
+        <item name="fontFamily">@font/cmu_serif</item>
+    </style>
 </resources>

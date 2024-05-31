@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,11 +19,20 @@ import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentEditBinding
 import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.NotebookRepository_Impl
 import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository_Impl
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
+import com.example.notebook_project.ui.preview.PreviewFragmentDirections
 import com.example.notebook_project.util.makeFileName
+import io.noties.markwon.AbstractMarkwonPlugin
+import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonPlugin
+import io.noties.markwon.core.MarkwonTheme
+import io.noties.markwon.editor.MarkwonEditor
+import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import java.util.Date
 
 
@@ -34,6 +44,7 @@ class EditFragment : Fragment() {
     private val vb get() = _binding!!
     private val args by navArgs<EditFragmentArgs>()
     private lateinit var NOTEBOOK_VIEW_MODEL: NotebookViewModel
+    var current_nb : Notebook? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +59,11 @@ class EditFragment : Fragment() {
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         val root: View = vb.root
 
+
         NOTEBOOK_VIEW_MODEL = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
-                NotebookRepository.getInstance(requireActivity()),
-                UserPreferencesRepository(
+                NotebookRepository_Impl.getInstance(requireActivity()),
+                UserPreferencesRepository_Impl(
                     requireActivity().dataStore,
                 ),
                 requireActivity().application
@@ -62,12 +74,38 @@ class EditFragment : Fragment() {
 
         val name : String = args.currentNotebook.notebook_name
         vb.etEditBody.setText( NOTEBOOK_VIEW_MODEL.readNotebookByName(name) )
+//        val theme: AbstractMarkwonPlugin = object : AbstractMarkwonPlugin() {
+//            override fun configureTheme(builder: MarkwonTheme.Builder) {
+////                super.configureTheme(builder)
+//                builder
+//                    .codeTypeface(
+//                        resources.getFont(R.font.space_mono)
+//                    )
+//                    .codeBlockTypeface(
+//                        resources.getFont(
+//                            R.font.space_mono
+//                        )
+//                    )
+//                    .isLinkUnderlined(true)
+//                    .headingTypeface(
+//                        resources.getFont(
+//                            R.font.cmu_serif
+//                        )
+//                    )
+//            }
+//        }
+        val markwon = Markwon.builder(requireContext())
+//            .usePlugin(theme)
+            .build()
+        val editor = MarkwonEditor.create(markwon)
+
+        vb.etEditBody.addTextChangedListener(MarkwonEditorTextWatcher.withProcess(editor))
         vb.fabEditorSave.setOnClickListener{
-            updateNotebook()
+            current_nb = updateNotebook()
         }
         vb.fabEditorSave.setOnLongClickListener{
-            val notebook_updated = updateNotebook()
-            notebook_updated?.let {
+            current_nb = updateNotebook()
+            current_nb?.let {
                 val action = EditFragmentDirections
                     .actionEditFragmentToNavPreview(it)
                 findNavController().navigate(action)
@@ -75,6 +113,20 @@ class EditFragment : Fragment() {
             true
         }
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val action = current_nb?.let {
+                        EditFragmentDirections.actionEditFragmentToNavPreview(
+                            it
+                        )
+                    }
+                    action?.let { findNavController().navigate(it) }
+                }
+            }
+            )
+        
         return root
     }
 

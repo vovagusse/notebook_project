@@ -15,7 +15,9 @@ import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentAddBinding
 import com.example.notebook_project.db.entities.Notebook
 import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.NotebookRepository_Impl
 import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository_Impl
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
@@ -49,16 +51,22 @@ class AddFragment : Fragment() {
 
         notebookViewModel = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
-                NotebookRepository.getInstance(requireActivity()),
-                UserPreferencesRepository(
+                NotebookRepository_Impl.getInstance(requireActivity()),
+                UserPreferencesRepository_Impl(
                     requireActivity().dataStore,
                 ),
                 requireActivity().application
             )
         )[NotebookViewModel::class.java]
 
+
+        var current_nb : Notebook?
         vb.fabAddSave.setOnClickListener{
             insertNewNotebook()
+        }
+        vb.fabAddSave.setOnLongClickListener{
+            insertNewNotebook()
+            true
         }
 
 

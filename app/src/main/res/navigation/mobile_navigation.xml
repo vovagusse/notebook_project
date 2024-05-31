@@ -3,59 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home"
+    app:startDestination="@+id/nav_home_fragment"
 
     >
-
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_home_fragment"
         android:name="com.example.notebook_project.ui.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_previewFragment"
-            app:destination="@id/nav_preview"
+            app:destination="@id/nav_preview_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_nav_home_to_settingsFragment"
-            app:destination="@id/settingsFragment"
+            app:destination="@id/nav_settings_fragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_nav_home_to_addFragment"
-            app:destination="@id/addFragment"
+            app:destination="@id/nav_add_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_nav_home_to_editFragment"
-            app:destination="@id/editFragment"
+            app:destination="@id/nav_edit_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/nav_preview"
+        android:id="@+id/nav_preview_fragment"
         android:name="com.example.notebook_project.ui.preview.PreviewFragment"
         android:label="@string/preview_label"
         tools:layout="@layout/fragment_preview" >
         <action
             android:id="@+id/action_nav_preview_to_nav_home"
-            app:destination="@id/nav_home"
+            app:destination="@id/nav_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_nav_preview_to_editFragment"
-            app:destination="@id/editFragment"
+            app:destination="@id/nav_edit_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -65,45 +64,45 @@
             app:argType="com.example.notebook_project.db.entities.Notebook" />
     </fragment>
     <fragment
-        android:id="@+id/addFragment"
+        android:id="@+id/nav_add_fragment"
         android:name="com.example.notebook_project.ui.editor.AddFragment"
         android:label="@string/add_label"
         tools:layout="@layout/fragment_add">
         <action
             android:id="@+id/action_addFragment_to_nav_home"
-            app:destination="@id/nav_home"
+            app:destination="@id/nav_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_addFragment_to_nav_preview"
-            app:destination="@id/nav_preview"
+            app:destination="@id/nav_preview_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/settingsFragment"
+        android:id="@+id/nav_settings_fragment"
         android:name="com.example.notebook_project.ui.editor.SettingsFragment"
         android:label="@string/settings" >
         <action
             android:id="@+id/action_settingsFragment_to_nav_home"
-            app:destination="@id/nav_home"
+            app:destination="@id/nav_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/editFragment"
+        android:id="@+id/nav_edit_fragment"
         android:name="com.example.notebook_project.ui.editor.EditFragment"
         android:label="@string/editor_label"
         tools:layout="@layout/fragment_edit" >
         <action
             android:id="@+id/action_editFragment_to_nav_preview"
-            app:destination="@id/nav_preview"
+            app:destination="@id/nav_preview_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -113,7 +112,7 @@
             app:argType="com.example.notebook_project.db.entities.Notebook" />
         <action
             android:id="@+id/action_editFragment_to_nav_home"
-            app:destination="@id/nav_home"
+            app:destination="@id/nav_home_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

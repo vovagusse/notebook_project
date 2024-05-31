@@ -1,9 +1,11 @@
 package com.example.notebook_project.ui.home.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
@@ -56,7 +58,7 @@ class NotebookRecyclerViewAdapter (
         return this.notebooks.size
     }
 
-    override fun onBindViewHolder(holder: NotebookViewHolder, pos: Int) {
+    override fun onBindViewHolder(holder: NotebookViewHolder, @SuppressLint("RecyclerView") pos: Int) {
         val nb = notebooks[pos]
         holder.tv_name.text = nb.notebook_name
         var body = recyclerViewInterface.readNotebookBody(pos)
@@ -71,14 +73,25 @@ class NotebookRecyclerViewAdapter (
         val markwon = Markwon.create(this.context)
         markwon.setMarkdown(holder.tv_body, body)
 
-        holder.container.setOnClickListener{
-            val action = HomeFragmentDirections.actionNavHomeToPreviewFragment(notebooks[pos])
-            holder.itemView.findNavController().navigate(action)
+        //functions
+        val toPreview = object : OnClickListener{
+            override fun onClick(it: View?) {
+                val action = HomeFragmentDirections.actionNavHomeToPreviewFragment(notebooks[pos])
+                holder.itemView.findNavController().navigate(action)
+            }
         }
-
-        holder.container.setOnLongClickListener{
-            true
+        val toEdit = object : View.OnLongClickListener {
+            override fun onLongClick(p0: View?): Boolean {
+                val action = HomeFragmentDirections.actionNavHomeToEditFragment(notebooks[pos])
+                holder.itemView.findNavController().navigate(action)
+                return true
+            }
         }
+        //overrides
+        holder.tv_body.setOnClickListener(toPreview)
+        holder.tv_body.setOnLongClickListener(toEdit)
+        holder.container.setOnClickListener(toPreview)
+        holder.container.setOnLongClickListener(toEdit)
 
         holder.context_menu_button.setOnClickListener{
             val popup = PopupMenu(this.context, holder.context_menu_button)

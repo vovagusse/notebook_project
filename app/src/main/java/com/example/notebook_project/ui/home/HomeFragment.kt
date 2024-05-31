@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentHomeBinding
 import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.NotebookRepository_Impl
 import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository_Impl
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
@@ -47,8 +49,8 @@ class HomeFragment : Fragment(), RecyclerViewInterface {
 
         NOTEBOOK_VIEW_MODEL = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
-                NotebookRepository.getInstance(requireActivity()),
-                UserPreferencesRepository(
+                NotebookRepository_Impl.getInstance(requireActivity()),
+                UserPreferencesRepository_Impl(
                     requireActivity().dataStore,
                 ),
                 requireActivity().application

@@ -1,17 +1,12 @@
 package com.example.notebook_project
 
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -23,8 +18,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.notebook_project.databinding.ActivityMainBinding
 import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.NotebookRepository_Impl
 import com.example.notebook_project.db.repository.UserPreferencesRepository
-import com.example.notebook_project.db.repository.UserTheme
+import com.example.notebook_project.db.repository.UserPreferencesRepository_Impl
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
@@ -43,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         notebookViewModel = ViewModelProvider(this,
             NotebookViewModelFactory(
-                NotebookRepository.getInstance(this),
-                UserPreferencesRepository(
+                NotebookRepository_Impl.getInstance(this),
+                UserPreferencesRepository_Impl(
                     this.dataStore,
                 ),
                 this.application
@@ -69,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = vb.drawerLayout
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home,
+                R.id.nav_home_fragment,
                 R.id.nav_github_link,
                 R.id.nav_settings
             ),
@@ -77,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         )
         //locks the drawerLayout object in case the fragment is not HomeFragment. Pretty cool, huh?
         navHostFragment.navController.addOnDestinationChangedListener(listener = { _, destination, _ ->
-            if (destination.id== R.id.nav_home) {
+            if (destination.id== R.id.nav_home_fragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             } else {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -97,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         //navController thing
         navController = navHostFragment.navController
         val navView: NavigationView = vb.navView
-        navController.navigate(R.id.nav_home)
+        navController.navigate(R.id.nav_home_fragment)
 
 
         // action bar setup

@@ -8,12 +8,12 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
 
+        <!--        Top and bottom of app-->
+        <item name="android:navigationBarColor">@color/blurple_white</item>
+
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/sky_blue</item>
-<!--        Top and bottom of app-->
-        <item name="android:navigationBarColor">@color/blurple_white</item>
         <item name="colorPrimaryVariant">@color/sky_blue</item>
-
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_dark</item>
@@ -24,16 +24,14 @@
         <!-- manrope <3 -->
         <item name="android:fontFamily">@font/manrope</item>
         <item name="fontFamily">@font/manrope</item>
-        <item name="android:textColor">
-            @color/blurple_dark_grey
-        </item>
+        <item name="android:textColor">@color/blurple_dark_grey</item>
     </style>
 
-<style name="Theme.Notebook_project.TextInversedColors" parent="Theme.AppCompat.DayNight">
-    <item name="android:textColor">
-        @color/blurple_white
-    </item>
-</style>
+    <style name="Theme.Notebook_project.TextInversedColors" parent="Theme.AppCompat.DayNight">
+        <item name="android:textColor">
+            @color/blurple_white
+        </item>
+    </style>
 
 
     <style name="Theme.Notebook_project.NoActionBar">
@@ -134,5 +132,12 @@
         <item name="android:padding">
             12dp
         </item>
+    </style>
+
+    <style name="Theme.Notebook_project.PreviewTextViewStyle" parent="ThemeOverlay.AppCompat">
+        <item name="textFillColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/blurple_dark_grey</item>
+        <item name="android:fontFamily">@font/cmu_serif</item>
+        <item name="fontFamily">@font/cmu_serif</item>
     </style>
 </resources>

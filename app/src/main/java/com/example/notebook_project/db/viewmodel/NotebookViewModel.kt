@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.notebook_project.db.entities.Notebook
@@ -16,9 +15,9 @@ import com.example.notebook_project.db.repository.UserPreferences
 import com.example.notebook_project.db.repository.UserPreferencesRepository
 import com.example.notebook_project.db.repository.UserTheme
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -33,10 +32,9 @@ class NotebookViewModel(
 ) : AndroidViewModel(context) {
 
     private val _userPreferencesFlow = userPrefsRepository.userPreferencesFlow
-    private val _themeFlow = MutableStateFlow(UserTheme.SYSTEM)
 
     private val notebookUiModelFlow = combine(
-        repository.getNotebooks(),
+        repository.observeNotebooks(),
         _userPreferencesFlow
     )
     {  notebooks: List<Notebook>,
@@ -118,19 +116,14 @@ class NotebookViewModel(
         this.notebookUiModel.value?.notebooks?.get(position)
     fun renameNotebook(old_uri: String, new_uri: String) {
         val old_f = File(old_uri)
-        if (!old_f.exists()){
-            val new_f = File(new_uri)
-            new_f.createNewFile()
-        } else {
-            old_f.renameTo(File(new_uri))
-        }
+        old_f.renameTo(File(new_uri))
     }
 
 
     private fun _writeToFile(uri: String, data: String) {
         try {
             val fos: FileOutputStream = context.openFileOutput(uri, Context.MODE_PRIVATE)
-            fos.write(data.toByteArray(Charsets.UTF_8))
+            fos.write(data.toByteArray())
             fos.flush()
             fos.close()
         } catch (e: IOException) {
@@ -198,6 +191,9 @@ class NotebookViewModel(
             userPrefsRepository.updateFolder(folder)
         }
     }
+    fun getFolder() = runBlocking (Dispatchers.IO) {
+        userPrefsRepository.userPreferencesFlow.asLiveData().value?.folder.toString()
+    }
     fun changeTheme(theme: UserTheme){
         viewModelScope.launch {
             userPrefsRepository.updateUserTheme(theme)
@@ -244,14 +240,13 @@ class NotebookViewModel(
 //            false
 //        }
 //    }
-
-    fun print() {
-        Log.i("print", "BEGIN PRINT")
-        notebookUiModel.value?.notebooks?.forEach {
-            Log.i("print", it.toString())
-        }
-        Log.i("print", "END PRINT")
-    }
+//    fun print() {
+//        Log.i("print", "BEGIN PRINT")
+//        notebookUiModel.value?.notebooks?.forEach {
+//            Log.i("print", it.toString())
+//        }
+//        Log.i("print", "END PRINT")
+//    }
 
 
 }

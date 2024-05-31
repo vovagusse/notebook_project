@@ -18,7 +18,9 @@ import com.example.notebook_project.R
 import com.example.notebook_project.databinding.ContentSettingsBinding
 import com.example.notebook_project.databinding.FragmentSettingsBinding
 import com.example.notebook_project.db.repository.NotebookRepository
+import com.example.notebook_project.db.repository.NotebookRepository_Impl
 import com.example.notebook_project.db.repository.UserPreferencesRepository
+import com.example.notebook_project.db.repository.UserPreferencesRepository_Impl
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
@@ -38,8 +40,8 @@ class SettingsFragment : PreferenceFragmentCompat(){
 
         NOTEBOOK_VIEW_MODEL = ViewModelProvider(requireActivity(),
             NotebookViewModelFactory(
-                NotebookRepository.getInstance(requireActivity()),
-                UserPreferencesRepository(
+                NotebookRepository_Impl.getInstance(requireActivity()),
+                UserPreferencesRepository_Impl(
                     requireActivity().dataStore,
                 ),
                 requireActivity().application
