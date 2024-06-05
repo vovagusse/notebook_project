@@ -1,8 +1,8 @@
 package com.example.notebook_project.db.viewmodel
 
+import android.R.attr.data
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,10 +18,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStreamReader
+import java.nio.charset.StandardCharsets
 import java.util.Date
 
 
@@ -31,11 +34,9 @@ class NotebookViewModel(
     val context: Application
 ) : AndroidViewModel(context) {
 
-    private val _userPreferencesFlow = userPrefsRepository.userPreferencesFlow
-
     private val notebookUiModelFlow = combine(
         repository.observeNotebooks(),
-        _userPreferencesFlow
+        userPrefsRepository.observeUserPreferences()
     )
     {  notebooks: List<Notebook>,
         prefs: UserPreferences
@@ -93,7 +94,9 @@ class NotebookViewModel(
         _upsertNotebook(notebook)
     }
     fun getNotebookByName(name: String) : Notebook? =
-        this.notebookUiModel.value?.notebooks?.find { it.notebook_name == name }
+        this.notebookUiModel.value?.notebooks?.find {
+            it.notebook_name == name
+        }
     fun readNotebookByName(name: String) : String {
         val query = getNotebookByName(name)
         return if (query!=null) _readFromFile(query.uri)
@@ -107,7 +110,7 @@ class NotebookViewModel(
         val query = getNotebookByName(name)
         if (query != null){
             _deleteFile(query.uri)
-            _deleteNotebookByName(name)
+            _deleteNotebookByName(query.notebook_name)
             return true
         }
         return false
@@ -119,11 +122,10 @@ class NotebookViewModel(
         old_f.renameTo(File(new_uri))
     }
 
-
     private fun _writeToFile(uri: String, data: String) {
         try {
             val fos: FileOutputStream = context.openFileOutput(uri, Context.MODE_PRIVATE)
-            fos.write(data.toByteArray())
+            fos.write(data.toByteArray(charset=Charsets.UTF_8))
             fos.flush()
             fos.close()
         } catch (e: IOException) {
@@ -131,7 +133,7 @@ class NotebookViewModel(
         }
     }
     private fun _upsertNotebook(notebook: Notebook){
-        Log.i("print", "upsertNotebook: $notebook")
+//        Log.i("print", "upsertNotebook: $notebook")
         viewModelScope.launch (Dispatchers.IO){
             repository.upsertNotebook(notebook)
         }
@@ -139,15 +141,21 @@ class NotebookViewModel(
     private fun _readFromFile(uri: String): String {
         return try {
             val fin: FileInputStream = context.openFileInput(uri)
-            var a: Char
-            val temp = StringBuilder()
-            while (fin.read().also { a = it.toChar() } != -1) {
-                temp.append(a)
 
+            var content: Char = ' '
+            val buffer = StringBuilder()
+            val finbuff =
+                BufferedReader(
+                    InputStreamReader(
+                        fin, StandardCharsets.UTF_8))
+            while (finbuff.read().also{
+                    content = it.toChar()
+                } != -1) {
+                buffer.append(content)
             }
             fin.close()
-            //return buffer
-            temp.toString()
+            finbuff.close()
+            buffer.toString()
         } catch (e: IOException) {
             e.printStackTrace()
             //return empty string
@@ -171,6 +179,7 @@ class NotebookViewModel(
             repository.deleteNotebookByName(name)
         }
     }
+
     fun changeSortOrder(sortOrder: SortOrder){
         viewModelScope.launch {
             userPrefsRepository.updateSortOrder(sortOrder)

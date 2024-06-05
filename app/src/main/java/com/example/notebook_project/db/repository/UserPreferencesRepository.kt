@@ -23,7 +23,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 interface UserPreferencesRepository {
-    abstract val userPreferencesFlow: Flow<UserPreferences>
+    val userPreferencesFlow: Flow<UserPreferences>
+    fun observeUserPreferences() : Flow<UserPreferences> {
+        return this.userPreferencesFlow
+    }
 
     //WRITING IS PERFORMED <HERE>
     suspend fun updateSortOrder(sortOrder: SortOrder)

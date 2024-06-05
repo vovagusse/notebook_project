@@ -60,3 +60,11 @@ fun <T> LiveData<T>.getOrAwaitValue(
     @Suppress("UNCHECKED_CAST")
     return data as T
 }
+
+fun printTest(testName: String, begin: Boolean){
+    println()
+    println("===============================================")
+    val spoopty_doot = if (begin) "BEGIN" else "END"
+    println("(${spoopty_doot})  test: $testName")
+    println("===============================================")
+}

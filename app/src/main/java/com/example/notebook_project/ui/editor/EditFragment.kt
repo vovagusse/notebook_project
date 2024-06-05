@@ -26,6 +26,7 @@ import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
 import com.example.notebook_project.ui.preview.PreviewFragmentDirections
+import com.example.notebook_project.util.EditTextFormatting
 import com.example.notebook_project.util.makeFileName
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
@@ -126,7 +127,26 @@ class EditFragment : Fragment() {
                 }
             }
             )
-        
+
+        //bar buttons
+        val frm = EditTextFormatting()
+        vb.tbEditBold.setOnClickListener {
+            frm.formatBold(vb.etEditBody)
+        }
+        vb.tbEditItalic.setOnClickListener {
+            frm.formatItalic(vb.etEditBody)
+        }
+        vb.tbEditUnderlined.setOnClickListener {
+            frm.formatUnderlined(vb.etEditBody)
+        }
+        vb.tbEditCodeInline.setOnClickListener {
+            frm.formatCodeInline(vb.etEditBody)
+        }
+        vb.tbEditCodeBlock.setOnClickListener {
+            frm.formatCodeBlock(vb.etEditBody)
+        }
+
+
         return root
     }
 

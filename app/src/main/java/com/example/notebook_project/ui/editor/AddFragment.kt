@@ -1,33 +1,33 @@
 package com.example.notebook_project.ui.editor
 
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.notebook_project.R
 import com.example.notebook_project.databinding.FragmentAddBinding
 import com.example.notebook_project.db.entities.Notebook
-import com.example.notebook_project.db.repository.NotebookRepository
 import com.example.notebook_project.db.repository.NotebookRepository_Impl
-import com.example.notebook_project.db.repository.UserPreferencesRepository
 import com.example.notebook_project.db.repository.UserPreferencesRepository_Impl
 import com.example.notebook_project.db.repository.dataStore
 import com.example.notebook_project.db.viewmodel.NotebookViewModel
 import com.example.notebook_project.db.viewmodel.NotebookViewModelFactory
+import com.example.notebook_project.util.EditTextFormatting
 import com.example.notebook_project.util.makeFileName
-
 import io.noties.markwon.Markwon
 import io.noties.markwon.editor.MarkwonEditor
 import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import java.util.concurrent.Executors
-
 
 
 class AddFragment : Fragment() {
@@ -87,6 +87,32 @@ class AddFragment : Fragment() {
                 )
         })
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    goHome()
+                }
+            }
+            )
+
+        //bar buttons
+        val frm = EditTextFormatting()
+        vb.tbAddBold.setOnClickListener {
+            frm.formatBold(vb.etAddBody)
+        }
+        vb.tbAddItalic.setOnClickListener {
+            frm.formatItalic(vb.etAddBody)
+        }
+        vb.tbAddUnderlined.setOnClickListener {
+            frm.formatUnderlined(vb.etAddBody)
+        }
+        vb.tbAddCodeInline.setOnClickListener {
+            frm.formatCodeInline(vb.etAddBody)
+        }
+        vb.tbAddCodeBlock.setOnClickListener {
+            frm.formatCodeBlock(vb.etAddBody)
+        }
         return vb.root
     }
 
@@ -126,13 +152,11 @@ class AddFragment : Fragment() {
 
         val action = AddFragmentDirections.actionAddFragmentToNavPreview(notebookObj)
         findNavController().navigate(action)
-
         return true
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun goHome(){
+        val action = AddFragmentDirections.actionAddFragmentToNavHome()
+        action.let { findNavController().navigate(it) }
     }
 }

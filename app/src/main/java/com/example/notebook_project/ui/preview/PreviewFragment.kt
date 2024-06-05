@@ -74,28 +74,35 @@ class PreviewFragment : Fragment() {
 //        val mono_font = resources.getFont(R.font.space_mono)
 //        val serif_font = resources.getFont(R.font.cmu_serif)
 
-        val theme: AbstractMarkwonPlugin = object : AbstractMarkwonPlugin() {
-            override fun configureTheme(builder: MarkwonTheme.Builder) {
-                super.configureTheme(builder)
-                builder
-//                    .codeTypeface(mono_font)
-//                    .codeBlockTypeface(mono_font)
-                    .isLinkUnderlined(true)
-//                    .headingTypeface(serif_font)
-            }
-        }
-        val markwon: Markwon? = try {
-            this.context?.let {
-                Markwon.builder(it)
-                    .usePlugin(theme)
-                    .build()
-            }
-        } catch (e: Exception) {
-            this.context?.let{
-                Markwon.create(it)
-            }
-        }
-        markwon?.setMarkdown(tv_preview_body, body)
+//        val theme: AbstractMarkwonPlugin = object : AbstractMarkwonPlugin() {
+//            override fun beforeSetText(textView: TextView, markdown: Spanned) {
+//                super.beforeSetText(textView, markdown)
+//                textView.linksClickable = true
+//            }
+//            override fun configureTheme(builder: MarkwonTheme.Builder) {
+//                super.configureTheme(builder)
+//                builder
+////                    .codeTypeface(mono_font)
+////                    .codeBlockTypeface(mono_font)
+//                    .isLinkUnderlined(true)
+////                    .headingTypeface(serif_font)
+//            }
+//        }
+//        val markwon: Markwon? = try {
+//            this.context?.let {
+//                Markwon.builder(it)
+//                    .usePlugin(theme)
+//                    .build()
+//            }
+//
+//        } catch (e: Exception) {
+//            this.context?.let{
+//                Markwon.create(it)
+//            }
+//        }
+
+        val markwon = Markwon.create(requireActivity())
+        markwon.setMarkdown(tv_preview_body, body)
 
 
 
@@ -107,12 +114,14 @@ class PreviewFragment : Fragment() {
 
         requireActivity()
             .onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val action = PreviewFragmentDirections.actionNavPreviewToNavHome()
-                    findNavController().navigate(action)
+            .addCallback(viewLifecycleOwner, object
+                : OnBackPressedCallback(true)
+                {
+                    override fun handleOnBackPressed() {
+                        val action = PreviewFragmentDirections.actionNavPreviewToNavHome()
+                        findNavController().navigate(action)
+                    }
                 }
-            }
             )
 
         return root

@@ -23,11 +23,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 data class UserPreferences(
-    val sortOrder: SortOrder,
-    val sortParam: SortingParameter,
-    val storageType: StorageType,
-    val userTheme: UserTheme,
-    val folder: String
+    var sortOrder: SortOrder = SortOrder.ASCENDING,
+    var sortParam: SortingParameter = SortingParameter.BY_NAME,
+    var storageType: StorageType = StorageType.INTERNAL,
+    var userTheme: UserTheme = UserTheme.SYSTEM,
+    var folder: String = ""
 )
 
 const val USER_PREFERENCES_NAME = "user_preferences"
@@ -66,7 +66,7 @@ class UserPreferencesRepository_Impl (
     }
 
 //READING IS IMPLEMENTED <HERE>
-    override val userPreferencesFlow: Flow<UserPreferences> = dataStore.data
+    override var userPreferencesFlow: Flow<UserPreferences> = dataStore.data
         .catch{ex ->
             if (ex is IOException){
                 Log.e(TAG, "Error reading preferences", ex)

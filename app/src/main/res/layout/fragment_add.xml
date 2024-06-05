@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ToggleButton
+            <Button
                 style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
                 android:layout_margin="4dp"
                 android:id="@+id/tb_add_bold"
@@ -73,7 +73,7 @@
                 android:layout_width="@dimen/_50dp"
                 android:layout_height="@dimen/_50dp"/>
 
-            <ToggleButton
+            <Button
                 style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
                 android:layout_margin="4dp"
                 android:id="@+id/tb_add_italic"
@@ -81,14 +81,27 @@
                 android:layout_width="@dimen/_50dp"
                 android:layout_height="@dimen/_50dp"/>
 
-            <ToggleButton
+            <Button
                 style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
                 android:layout_margin="4dp"
                 android:id="@+id/tb_add_underlined"
                 android:background="@drawable/ic_underlined"
                 android:layout_width="@dimen/_50dp"
                 android:layout_height="@dimen/_50dp"/>
-
+            <Button
+                style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
+                android:layout_margin="4dp"
+                android:id="@+id/tb_add_code_inline"
+                android:background="@drawable/ic_code"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"/>
+            <Button
+                style="@style/Theme.Notebook_project.ToggleButtonAdaptiveStyle"
+                android:layout_margin="4dp"
+                android:id="@+id/tb_add_code_block"
+                android:background="@drawable/ic_code_block"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"/>
 
         </LinearLayout>
 
